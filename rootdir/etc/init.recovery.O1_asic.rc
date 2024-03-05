@@ -10,8 +10,8 @@ on init
 
 # USB
 on init
-    setprop sys.usb.configfs 1
     setprop sys.usb.controller e1ac0000.dwc3
+    setprop sys.usb.configfs 1
 
 # force usb to device mode for recovery mode
 on boot
