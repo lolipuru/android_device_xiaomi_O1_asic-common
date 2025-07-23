@@ -2,6 +2,7 @@ import /vendor/etc/init/hw/init.connectivity.rc
 import /vendor/etc/init/hw/init.xrusb.rc
 import /vendor/etc/init/hw/init.common.rc
 import /vendor/etc/init/hw/init.xring.edr.rc
+import /vendor/etc/init/hw/init.xiaomi.rc
 
 on early-init && property:ro.boot.factorybuild=1
     write /sys/devices/system/cpu/cpufreq/policy8/scaling_max_freq 0
