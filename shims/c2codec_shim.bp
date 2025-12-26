@@ -1,0 +1,11 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_shared {
+    name: "c2codec_shim",
+    srcs: ["c2codec_shim.cpp"],
+    shared_libs: ["libutils"],
+    device_specific: true,
+}
