@@ -1,0 +1,12 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+prebuilt_etc {
+    name: "fstab.O1_asic",
+    src: "etc/fstab.O1_asic",
+    vendor: true,
+    vendor_ramdisk_available: true,
+}
