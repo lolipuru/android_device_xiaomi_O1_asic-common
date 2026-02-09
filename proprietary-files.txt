@@ -19,8 +19,9 @@ odm/etc/audio/sku_xring/audio_resource_config.xml
 odm/etc/audio/sku_xring/audio_route_config.xml
 vendor/lib64/libaudiocloudctrl.so
 vendor/lib64/libaudiomisight.so
+vendor/lib64/libmisight.so
 vendor/lib64/libmis6_legacyap.so
-vendor/lib64/libmisoundfx_aidl_ext.so
+vendor/lib64/libmisoundfx_aidl_ext.so;SYMLINK=vendor/lib64/soundfx/libmisoundfx_aidl.so
 vendor/lib64/xring.hardware.audio.parameter-V1-ndk.so
 
 # Batterysecret
@@ -39,3 +40,18 @@ recovery/ramdisk/system/etc/vintf/manifest/android.hardware.fastboot-service.exa
 vendor/bin/hw/android.hardware.boot-service.xring
 vendor/etc/init/android.hardware.boot-service.xring.rc
 vendor/etc/vintf/manifest/android.hardware.boot-service.xring.xml
+
+# Mi-TEE
+vendor/lib64/libteecli.so
+
+# PerfFlinger
+vendor/bin/hw/vendor.xring.hardware.perfflinger.service
+vendor/etc/init/vendor.xring.hardware.perfflinger.rc
+vendor/etc/vintf/manifest/vendor.xring.hardware.perfflinger.xml
+vendor/lib64/libperfflinger_client_vendor.so
+vendor/lib64/libperfflinger_config.so
+vendor/lib64/libperfflinger_controller.so
+vendor/lib64/libperfflinger_log.so
+vendor/lib64/libperfflinger_utils.so
+vendor/lib64/vendor.xring.hardware.perfflinger-V1-ndk.so
+vendor/lib64/xring.perfflinger.wrapper.so;DISABLE_CHECKELF

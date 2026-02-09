@@ -26,6 +26,14 @@ namespace_imports = [
     'vendor/xiaomi/o1_asic-common',
 ]
 
+lib_fixups: lib_fixups_user_type = {
+    **lib_fixups,
+    (
+        'libcamlog',
+        'com.xiaomi.camdfx'
+    ): lib_fixup_remove,
+}
+
 blob_fixups: blob_fixups_user_type = {
 }
 
