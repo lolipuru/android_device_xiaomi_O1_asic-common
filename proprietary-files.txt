@@ -1,0 +1,41 @@
+## All proprietary files from this list, unless pinned and noted otherwise,
+## are from Xiaomi 15S Pro (OS3.0.10.0.WODCNXM). 
+
+# Audio
+odm/etc/audio/mis_legacytuning_configs.bin
+odm/etc/audio/misoundsa_spk_config.bin
+odm/etc/audio/mis_powerop_configs.bin
+odm/etc/audio/mis_systemsound_configs.bin
+odm/etc/audio/sku_xring/acData/default/audif.xml
+odm/etc/audio/sku_xring/acData/default/karaoke.xml
+odm/etc/audio/sku_xring/acData/default/playback.xml
+odm/etc/audio/sku_xring/acData/default/record.xml
+odm/etc/audio/sku_xring/acData/default/vad.xml
+odm/etc/audio/sku_xring/acData/default/voice.xml
+odm/etc/audio/sku_xring/acData/default/voip.xml
+odm/etc/audio/sku_xring/audio_base.db
+odm/etc/audio/sku_xring/audio_channel_map.xml
+odm/etc/audio/sku_xring/audio_resource_config.xml
+odm/etc/audio/sku_xring/audio_route_config.xml
+vendor/lib64/libaudiocloudctrl.so
+vendor/lib64/libaudiomisight.so
+vendor/lib64/libmis6_legacyap.so
+vendor/lib64/libmisoundfx_aidl_ext.so
+vendor/lib64/xring.hardware.audio.parameter-V1-ndk.so
+
+# Batterysecret
+vendor/bin/batterysecret
+vendor/etc/init/hw/init.batterysecret.rc
+
+# Boot (Ramdisk)
+recovery/ramdisk/system/bin/hw/android.hardware.boot-service.xring.recovery;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/bin/hw/android.hardware.fastboot-service.example_recovery;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/etc/init/android.hardware.boot-service.xring.recovery.rc;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/etc/init/android.hardware.fastboot-service.example_recovery.rc;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/etc/vintf/manifest/android.hardware.boot-service.xring.xml;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/etc/vintf/manifest/android.hardware.fastboot-service.example.xml;MAKE_COPY_RULE_ONLY
+
+# Boot (vendor)
+vendor/bin/hw/android.hardware.boot-service.xring
+vendor/etc/init/android.hardware.boot-service.xring.rc
+vendor/etc/vintf/manifest/android.hardware.boot-service.xring.xml
