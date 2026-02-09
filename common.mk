@@ -27,8 +27,24 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio.service \
-    audio.primary.default
+    android.hardware.audio.core-V2-ndk.vendor \
+    android.hardware.audio.effect-V2-ndk.vendor \
+    android.media.audio.common.types-V3-ndk.vendor \
+    android.media.audio.common.types-V4-ndk.vendor \
+    libbassboostsw \
+    libbluetooth_audio_session \
+    libbundleaidl \
+    libdownmixaidl \
+    libdynamicsprocessingaidl \
+    libequalizersw \
+    libextensioneffect \
+    libhapticgeneratoraidl \
+    libloudnessenhanceraidl \
+    libpresetreverbsw \
+    libreverbaidl \
+    libvirtualizersw \
+    libvisualizeraidl \
+    libvolumesw
 
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
