@@ -40,12 +40,12 @@ vendor/lib64/libbluetooth_mtk_pure.so
 vendor/lib64/libbt-vendor.so
 
 # Boot (Ramdisk)
-recovery/ramdisk/system/bin/hw/android.hardware.boot-service.xring.recovery;MAKE_COPY_RULE_ONLY
-recovery/ramdisk/system/bin/hw/android.hardware.fastboot-service.example_recovery;MAKE_COPY_RULE_ONLY
-recovery/ramdisk/system/etc/init/android.hardware.boot-service.xring.recovery.rc;MAKE_COPY_RULE_ONLY
-recovery/ramdisk/system/etc/init/android.hardware.fastboot-service.example_recovery.rc;MAKE_COPY_RULE_ONLY
-recovery/ramdisk/system/etc/vintf/manifest/android.hardware.boot-service.xring.xml;MAKE_COPY_RULE_ONLY
-recovery/ramdisk/system/etc/vintf/manifest/android.hardware.fastboot-service.example.xml;MAKE_COPY_RULE_ONLY
+recovery/ramdisk/system/bin/hw/android.hardware.boot-service.xring.recovery;MAKE_COPY_RULE_ONLY|06f44794adc9c6bcf9ac126233e73a8c047fef0a
+recovery/ramdisk/system/bin/hw/android.hardware.fastboot-service.example_recovery;MAKE_COPY_RULE_ONLY|38fea18040b64516bfdeb837bf5d4788fc110526
+recovery/ramdisk/system/etc/init/android.hardware.boot-service.xring.recovery.rc;MAKE_COPY_RULE_ONLY|9f4a1da88bcb735a5b6804f60dacdd7141f59597
+recovery/ramdisk/system/etc/init/android.hardware.fastboot-service.example_recovery.rc;MAKE_COPY_RULE_ONLY|83e4550ccfd04ec039ba4fefe73fb6de6e6011ed
+recovery/ramdisk/system/etc/vintf/manifest/android.hardware.boot-service.xring.xml;MAKE_COPY_RULE_ONLY|66d9bddb8942869e3ca735085d53991e740e5ba3
+recovery/ramdisk/system/etc/vintf/manifest/android.hardware.fastboot-service.example.xml;MAKE_COPY_RULE_ONLY|1ae1334fd7f78ed661b5a0274c8d09966608b040
 
 # Boot (vendor)
 vendor/bin/hw/android.hardware.boot-service.xring
