@@ -35,6 +35,11 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    (
+        'odm/lib64/libmt_mitee.so',
+        'vendor/bin/hw/android.hardware.security.keymint@3.0-service.mitee'
+    ): blob_fixup()
+        .replace_needed('android.hardware.security.keymint-V3-ndk.so', 'android.hardware.security.keymint-V3-ndk-xiaomi.so'),
 }
 
 module = ExtractUtilsModule(

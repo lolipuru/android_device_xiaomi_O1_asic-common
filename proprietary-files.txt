@@ -21,8 +21,12 @@ vendor/lib64/libaudiocloudctrl.so
 vendor/lib64/libaudiomisight.so
 vendor/lib64/libmisight.so
 vendor/lib64/libmis6_legacyap.so
-vendor/lib64/libmisoundfx_aidl_ext.so;SYMLINK=vendor/lib64/soundfx/libmisoundfx_aidl.so
+vendor/lib64/libmisoundfx_aidl_ext.so;SYMLINK=vendor/lib64/soundfx/libmisoundfx_aidl.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/xring.hardware.audio.parameter-V1-ndk.so
+
+# Apex
+vendor/apex/com.android.hardware.power.xring.apex
+vendor/apex/com.android.hardware.thermal.xring.apex
 
 # Batterysecret
 vendor/bin/batterysecret
@@ -41,8 +45,28 @@ vendor/bin/hw/android.hardware.boot-service.xring
 vendor/etc/init/android.hardware.boot-service.xring.rc
 vendor/etc/vintf/manifest/android.hardware.boot-service.xring.xml
 
-# Mi-TEE
+# mitee
+odm/etc/init/vendor.xiaomi.hardware.mikeybag-miteeservice.rc
+vendor/bin/hw/android.hardware.gatekeeper-service.mitee
+vendor/bin/hw/android.hardware.security.keymint@3.0-service.mitee
+vendor/etc/init/android.hardware.gatekeeper-service.mitee.rc
+vendor/etc/init/android.hardware.security.keymint.mitee@3.0-service.rc
+vendor/etc/vintf/manifest/android.hardware.gatekeeper-service.mitee.xml
+vendor/etc/vintf/manifest/android.hardware.security.keymint-service.mitee.xml
+vendor/etc/vintf/manifest/android.hardware.security.secureclock-service.mitee.xml
+vendor/etc/vintf/manifest/android.hardware.security.sharedsecret-service.mitee.xml
 vendor/lib64/libteecli.so
+vendor/lib64/android.hardware.security.keymint-V3-ndk.so:vendor/lib64/android.hardware.security.keymint-V3-ndk-xiaomi.so;FIX_SONAME
+vendor/mitee/ta/07578c47-fb20-4d61-a3098be0e5a419d2.ta
+vendor/mitee/ta/2e8fade5-0c7a-46cc-810e6468baee66b9.ta
+vendor/mitee/ta/3fffcf00-a684-4e03-a6d11022eef45939.ta
+vendor/mitee/ta/4d573443-6a56-4272-ac6f2425af9ef9bb.ta
+vendor/mitee/ta/8f8e6cbf-b34b-48a4-a78a08cd5ffb81bd.ta
+vendor/mitee/ta/98f4690f-6d38-4422-ac87af686a883d9f.ta
+vendor/mitee/ta/a72aaa20-375d-2729-10f1d2f3c9b49315.ta
+vendor/mitee/ta/dba51a17-0563-11e7-93b16fa7b0071a51.ta
+vendor/mitee/ta/e97c270e-a5c4-4c58-bcd3384a2fa2539e.ta
+vendor/mitee/ta/efff4308-e6cb-42b0-ac5aa97eee959dc5.ta
 
 # PerfFlinger
 vendor/bin/hw/vendor.xring.hardware.perfflinger.service
@@ -55,3 +79,11 @@ vendor/lib64/libperfflinger_log.so
 vendor/lib64/libperfflinger_utils.so
 vendor/lib64/vendor.xring.hardware.perfflinger-V1-ndk.so
 vendor/lib64/xring.perfflinger.wrapper.so;DISABLE_CHECKELF
+
+# USB
+vendor/bin/hw/android.hardware.usb-service.xring
+vendor/bin/hw/android.hardware.usb.gadget-service.xring
+vendor/etc/init/android.hardware.usb-service.xring.rc
+vendor/etc/init/android.hardware.usb.gadget-service.xring.rc
+vendor/etc/vintf/manifest/android.hardware.usb-service.xring.xml
+vendor/etc/vintf/manifest/android.hardware.usb.gadget-service.xring.xml
