@@ -23,3 +23,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 PRODUCT_PACKAGES += \
     fstab.O1_asic \
     fstab.O1_asic.vendor_ramdisk \
+	init.O1_asic.rc \
+	init.recovery.O1_asic.rc \
+	init.xrusb.rc \
+	ueventd.xring.rc \
