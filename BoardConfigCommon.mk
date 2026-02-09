@@ -38,6 +38,42 @@ TARGET_CPU_VARIANT := cortex-a76
 TARGET_BOOTLOADER_BOARD_NAME := dijun
 TARGET_NO_BOOTLOADER := true
 
+# Kernel
+BOARD_DTB_OFFSET := 0x04008000
+BOARD_KERNEL_BASE := 0x00008000
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_TAGS_OFFSET := 0x04008000
+BOARD_RAMDISK_OFFSET := 0x04208000
+
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+BOARD_RAMDISK_USE_LZ4 := true
+
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_INIT_BOOT_HEADER_VERSION := 4
+BOARD_KERNEL_IMAGE_NAME := kernel.lz4
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+
+BOARD_KERNEL_CMDLINE += \
+    log_buf_len=1M \
+    firmware_class.path=/vendor/firmware,/odm/firmware, \
+    loglevel=7 \
+    fw_devlink.strict=1 \
+    workqueue.power_efficient=true \
+    erofs.reserved_pages=64 \
+    pcie_port_pm=force \
+    ftrace_dump_on_oops \
+    loop.max_part=7 \
+    launch_boost_enabled \
+    dump_display.fingerprint=$(LINEAGE_VERSION)
+
+BOARD_BOOTCONFIG := androidboot.serialconsole=0
+
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
+
 # Partitions
 
 # Platform
