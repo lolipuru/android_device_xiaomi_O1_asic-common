@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2026 The LineageOS Project
+// Copyright (C) 2023 The LineageOS Project
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -9,4 +9,25 @@ prebuilt_etc {
     src: "etc/fstab.O1_asic",
     vendor: true,
     vendor_ramdisk_available: true,
+}
+
+prebuilt_etc {
+    name: "init.recovery.O1_asic.rc",
+    src: "etc/init.recovery.O1_asic.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.xrusb.rc",
+    src: "etc/init.xrusb.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ueventd.xring.rc",
+    src: "etc/ueventd.xring.rc",
+    filename: "ueventd.rc",
+    vendor: true,
 }

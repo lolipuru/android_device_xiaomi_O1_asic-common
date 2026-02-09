@@ -1,0 +1,482 @@
+import /vendor/etc/init/hw/init.connectivity.rc
+import /vendor/etc/init/hw/init.xrusb.rc
+import /vendor/etc/init/hw/init.common.rc
+import /vendor/etc/init/hw/init.xring.edr.rc
+
+on early-init && property:ro.boot.factorybuild=1
+    write /sys/devices/system/cpu/cpufreq/policy8/scaling_max_freq 0
+    setprop vendor.usb.config acmdiag
+
+on early-init
+    export MEMTAG_OPTIONS off
+    exec_start system_dlkm_load
+    start vendor_dlkm_load
+
+service system_dlkm_load /vendor/bin/init.system_dlkm.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service vendor_dlkm_load /vendor/bin/init.insmod.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+on early-init && property:ro.system.build.type=eng
+    export GWP_ASAN_MAX_ALLOCS 32
+    export GWP_ASAN_SAMPLE_RATE 2500
+    export GWP_ASAN_PROCESS_SAMPLING 128
+
+on init
+    write /sys/class/devfreq/ddr_devfreq/max_freq 20000000000
+    write /sys/class/devfreq/ddr_devfreq/min_freq 20000000000
+    chown root system /dev/ddr_vote_dev
+    chmod 0660 /dev/ddr_vote_dev
+    chown root system /dev/xr_perf_actuator
+    chmod 0660 /dev/xr_perf_actuator
+    chown root system /sys/class/devfreq/gpufreq/dynamic/user_freq
+    chmod 0664 /sys/class/devfreq/gpufreq/dynamic/user_freq
+    setprop sys.usb.configfs 1
+
+    write /sys/devices/system/cpu/gic_routing/gic_enable_class0 1
+
+    # l3_devfreq
+    chown root system /sys/class/devfreq/l3_devfreq/governor
+    chown root system /sys/class/devfreq/l3_devfreq/max_freq
+    chown root system /sys/class/devfreq/l3_devfreq/min_freq
+    chown root system /sys/class/devfreq/l3_devfreq/available_frequencies
+    chown root system /sys/class/devfreq/l3_devfreq/available_governors
+    chown root system /sys/class/devfreq/l3_devfreq/cur_freq
+    chown root system /sys/class/devfreq/l3_devfreq/actual_freq
+    chown root system /sys/class/devfreq/l3_devfreq/range
+    chown root system /sys/class/devfreq/l3_devfreq/target_freq
+    chown root system /sys/class/devfreq/l3_devfreq/stat
+    chmod 660 /sys/class/devfreq/l3_devfreq/governor
+    chmod 660 /sys/class/devfreq/l3_devfreq/max_freq
+    chmod 660 /sys/class/devfreq/l3_devfreq/min_freq
+    chmod 440 /sys/class/devfreq/l3_devfreq/available_frequencies
+    chmod 440 /sys/class/devfreq/l3_devfreq/available_governors
+    chmod 440 /sys/class/devfreq/l3_devfreq/cur_freq
+    chmod 440 /sys/class/devfreq/l3_devfreq/actual_freq
+    chmod 440 /sys/class/devfreq/l3_devfreq/range
+    chmod 440 /sys/class/devfreq/l3_devfreq/target_freq
+    chmod 440 /sys/class/devfreq/l3_devfreq/stat
+    chmod 640 /sys/class/devfreq/l3_devfreq/trans_stat
+
+    # l3_lp_ctrl
+    chown root system /sys/devices/platform/l3_lp_ctrl/pwpr
+    chown root system /sys/devices/platform/l3_lp_ctrl/pwsr
+    chown root system /sys/devices/platform/l3_lp_ctrl/pwr_status
+    chown root system /sys/devices/platform/l3_lp_ctrl/pwr_dyn_status
+    chown root system /sys/devices/platform/l3_lp_ctrl/op_status
+    chown root system /sys/devices/platform/l3_lp_ctrl/op_dyn_status
+    chown root system /sys/devices/platform/l3_lp_ctrl/pwrctlr
+    chown root system /sys/devices/platform/l3_lp_ctrl/funcret
+    chown root system /sys/devices/platform/l3_lp_ctrl/opres
+    chown root system /sys/devices/platform/l3_lp_ctrl/prtnrq
+    chown root system /sys/devices/platform/l3_lp_ctrl/slcrq
+    chown root system /sys/devices/platform/l3_lp_ctrl/slcprtn
+    chown root system /sys/devices/platform/l3_lp_ctrl/fullret
+    chown root system /sys/devices/platform/l3_lp_ctrl/autoprtn
+    chown root system /sys/devices/platform/l3_lp_ctrl/autoslc
+    chown root system /sys/devices/platform/l3_lp_ctrl/qnap
+    chown root system /sys/devices/platform/l3_lp_ctrl/slcbw
+    chown root system /sys/devices/platform/l3_lp_ctrl/slcsf
+    chown root system /sys/devices/platform/l3_lp_ctrl/oslccnt
+    chown root system /sys/devices/platform/l3_lp_ctrl/hslccnt
+    chown root system /sys/devices/platform/l3_lp_ctrl/oslcmask
+    chown root system /sys/devices/platform/l3_lp_ctrl/hslcmask
+    chown root system /sys/devices/platform/l3_lp_ctrl/dnth0
+    chown root system /sys/devices/platform/l3_lp_ctrl/dnth1
+    chown root system /sys/devices/platform/l3_lp_ctrl/upth0
+    chown root system /sys/devices/platform/l3_lp_ctrl/upth1
+    chown root system /sys/devices/platform/l3_lp_ctrl/upth2
+    chown root system /sys/devices/platform/l3_lp_ctrl/hit
+    chown root system /sys/devices/platform/l3_lp_ctrl/miss
+    write /sys/devices/platform/l3_lp_ctrl/pwrctlr 0x70  # ALL SLICE FULL RAM
+
+    chown root system /dev/flowctrl_vote
+    chmod 660 /dev/flowctrl_vote
+
+on fs
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
+
+on late-fs
+    mount_all /vendor/etc/fstab.${ro.hardware} --late
+
+on post-fs
+    chown system system /mnt/vendor/protect_f
+    chmod 0770 /mnt/vendor/protect_f
+    chown system system /mnt/vendor/protect_s
+    chmod 0770 /mnt/vendor/protect_s
+
+on post-fs-data
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    chown system system /mnt/vendor/nvcfg/fg
+    chown system system /mnt/vendor/nvcfg/fg/old_fg_data
+    chown system system /mnt/vendor/nvcfg/fg/car_tune_value
+
+    # create basic filesystem structure
+    # We chown/chmod /mnt/vendor/nvdata again so because mount is run as root + defaults
+    chown root system /mnt/vendor/nvdata
+    chmod 0771 /mnt/vendor/nvdata
+    chown root system /mnt/vendor/nvdata/md/NVRAM
+    chown root system /mnt/vendor/nvdata/md/NVRAM/NVD_IMEI
+    chown root system /mnt/vendor/nvdata/md/NVRAM/CALIBRAT
+    chmod 0660 /mnt/vendor/nvdata/md/NVRAM/NVD_IMEI/FILELIST
+    chmod 0660 /mnt/vendor/nvdata/md/NVRAM/CALIBRAT/FILELIST
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /mnt/vendor/nvdata
+
+    #Create folder of camera
+    mkdir /data/vendor/camera 0777 camera camera
+    mkdir /data/vendor/camera/offlinelog 0777 cameraserver audio
+    mkdir /data/vendor/camera/aftersalelog 0777 cameraserver audio
+    mkdir /data/vendor/camera/EdrLog 0777 cameraserver audio
+    # MIUI ADD: Camera_CameraSkyNet
+    chmod 0666 /dev/camlog
+    #END Camera_CameraSkyNet
+
+on zygote-start && property:ro.vendor.bootup_keypoint=true
+    write /proc/bootup_keypoint 150
+
+on property:sys.boot_completed=1
+    write /dev/xr_cpufreq_qos 0
+
+    write /sys/class/devfreq/ddr_devfreq/max_freq 0
+    write /sys/class/devfreq/ddr_devfreq/min_freq 0
+
+    write /dev/cpuset/foreground/cpus 0-9
+    write /dev/cpuset/top-app/cpus 2-9
+    write /dev/cpuset/background/cpus 0-3
+    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/restricted/cpus 0-4
+    write /proc/sys/walt/sched_early_downmigrate "1995 1669 1204"
+    write /proc/sys/walt/sched_early_upmigrate "1669 1575 1077"
+
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 0
+    write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
+
+    write /proc/sys/kernel/hung_task_timeout_secs 120
+
+    # cpu big cluster
+    write /sys/devices/system/cpu/cpu8/core_ctl/max_cpus 2
+    write /sys/devices/system/cpu/cpu8/core_ctl/min_cpus 0
+    write /sys/devices/system/cpu/cpu8/core_ctl/min_partial_cpus 0
+    write /sys/devices/system/cpu/cpu8/core_ctl/task_thres 2
+    write /sys/devices/system/cpu/cpu8/core_ctl/nrrun_cpu_mask 0x300
+    write /sys/devices/system/cpu/cpu8/core_ctl/nrrun_cpu_misfit_mask 0x0f0
+    write /sys/devices/system/cpu/cpu8/core_ctl/assist_cpu_mask 0x0f0
+    write /sys/devices/system/cpu/cpu8/core_ctl/assist_cpu_misfit_mask 0x00f
+    write /sys/devices/system/cpu/cpu8/core_ctl/busy_up_thres "60 60"
+    write /sys/devices/system/cpu/cpu8/core_ctl/busy_down_thres "30 30"
+    write /sys/devices/system/cpu/cpu8/core_ctl/not_preferred "0 1"
+    write /sys/devices/system/cpu/cpu8/core_ctl/offline_delay_ms 100
+    write /sys/devices/system/cpu/cpu8/core_ctl/enable 1
+
+    # allow schedgenius to disable core_ctl
+    chown root system /sys/devices/system/cpu/cpu8/core_ctl/enable
+    chmod 0660 /sys/devices/system/cpu/cpu8/core_ctl/enable
+
+    # sbt
+    write /proc/sys/walt/sched_sbt_pause_cpus 0x200
+    write /proc/sys/walt/sched_sbt_delay_windows 10
+
+    # cpu retention
+    write /sys/devices/system/cpu/xring_idle/cpu0/ret_mode "4 5 5"
+    write /sys/devices/system/cpu/xring_idle/cpu1/ret_mode "4 5 5"
+    write /sys/devices/system/cpu/xring_idle/cpu2/ret_mode "0 5 5"
+    write /sys/devices/system/cpu/xring_idle/cpu3/ret_mode "0 5 5"
+    write /sys/devices/system/cpu/xring_idle/cpu4/ret_mode "0 7 7"
+    write /sys/devices/system/cpu/xring_idle/cpu5/ret_mode "0 7 7"
+    write /sys/devices/system/cpu/xring_idle/cpu6/ret_mode "0 7 7"
+    write /sys/devices/system/cpu/xring_idle/cpu7/ret_mode "0 7 7"
+
+    # disable sched boost
+    write /proc/sys/walt/sched_boost 0
+
+    # disable boot global boost
+    write /proc/sys/walt/sched_global_boost_min_uclamp 0
+
+    # MIUI ADD: Xring_BoostFramework
+    # configure powerkey boost settings
+    write /proc/sys/walt/input_boost/powerkey_boost_freq "1795200 0 1891200 0 2812800 0 0 0 2793600 0"
+    write /proc/sys/walt/input_boost/powerkey_boost_ms 400
+    write /proc/sys/walt/input_boost/sched_boost_on_powerkey 1
+    # END Xring_BoostFramework
+
+    # spread affinity
+    write /proc/sys/walt/sched_spread_affinity_restrict_cpumask 0x300   # big cpus
+    write /proc/sys/walt/sched_spread_affinity_assist_cpumask 0xf0      # perf mid cpus
+
+    # l3
+    write /sys/class/devfreq/l3_devfreq/governor powersave
+
+    # dsu mpam
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 1
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000001
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 2
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000002
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 3
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000006
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 4
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000001
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 5
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xfc
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000003
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 6
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000003
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 7
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000007
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 8
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xf0
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000007
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_partid_select 63
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_cpbm 0xff
+    write /sys/devices/platform/eb210000.dsu_msc/mpam_mbw_prop 0x00000000
+
+    # cpu mpam
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "0 3"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "1 3"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "2 2"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "3 2"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "4 1"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "5 1"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "6 1"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "7 1"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "8 1"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cpu "9 1"
+
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "top-app 4"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "foreground 4"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "restricted 5"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "camera-daemon 6"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "system-background 7"
+    write /sys/devices/system/cpu/mpam/mpam_partid_map_cgroup "background 8"
+
+    write /sys/devices/system/cpu/mpam/mpam_high_qos_partid 63
+
+    # 38.4MHz
+    write /sys/devices/platform/l3_lp_ctrl/funcret 2        # 512 ticks, 13.3usec
+    write /sys/devices/platform/l3_lp_ctrl/fullret 3        # 2048 ticks, 53.3usec
+    # end of l3
+
+    # enable memlat
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:l3c/dvfs_gov:memlat:l3c:c0/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:l3c/dvfs_gov:memlat:l3c:c1/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:l3c/dvfs_gov:memlat:l3c:c2/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:l3c/dvfs_gov:memlat:l3c:c3/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c0/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c1/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c2/enable 1
+    write /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c3/enable 1
+
+    # allow schedgenius to disable memlat
+    chown root system /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c0/enable
+    chown root system /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c1/enable
+    chown root system /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c2/enable
+    chown root system /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c3/enable
+    chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c0/enable
+    chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c1/enable
+    chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c2/enable
+    chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c3/enable
+
+    # enable qos sched
+    write /sys/kernel/qos_inherit/inherit_enable 0x3ff
+    write /sys/kernel/qos_sched/sched_enable 1
+
+    # enable speedlock
+    write /sys/kernel/speedlock/sl_enable 1
+
+    # set thermal tz use ipa policy
+    write /sys/class/thermal/thermal_zone22/policy power_allocator
+    write /sys/class/thermal/thermal_zone25/policy power_allocator
+
+    # adjust pmu control flow's default parameters
+    write /proc/sys/kernel/perf_event_max_sample_rate 32250
+
+on property:sys.boot_completed=1 && property:ro.vendor.bootup_keypoint=true
+    write /proc/bootup_keypoint 250
+
+on property:sys.boot_completed=1 && property:ro.vendor.bootup_track=true
+    write /proc/bootup_track 1
+
+on init && property:ro.boot.hwproductname=franklin
+    setprop ro.boot.fake_battery 1
+
+on boot
+    #Assign core socket buffer thresholds to be ceiling value of technology maximums
+    #Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/wmem_max  8388608
+    #For backlight
+    chown system graphics /sys/class/backlight/panel0-backlight/brightness
+    chown system graphics /sys/class/backlight/panel0-backlight/max_brightness
+    chmod 0664 /sys/class/backlight/panel0-backlight/brightness
+    chmod 0664 /sys/class/backlight/panel0-backlight/max_brightness
+    chown system graphics /sys/class/backlight/panel1-backlight/brightness
+    chown system graphics /sys/class/backlight/panel1-backlight/max_brightness
+    chmod 0664 /sys/class/backlight/panel1-backlight/brightness
+    chmod 0664 /sys/class/backlight/panel1-backlight/max_brightness
+    chmod 0444 /dev/timestamp
+
+    #Microdroid
+    chmod 0666 /dev/xrvm
+
+    chown root system /sys/devices/system/cpu/cpu0/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu1/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu2/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu3/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu4/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu5/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu6/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu7/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu8/qos/max_freq
+    chown root system /sys/devices/system/cpu/cpu9/qos/max_freq
+
+    chown root system /sys/devices/system/cpu/cpu0/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu1/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu2/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu3/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu4/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu5/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu6/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu7/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu8/qos/min_freq
+    chown root system /sys/devices/system/cpu/cpu9/qos/min_freq
+
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor xres
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/above_hispeed_delay "1000 1228800:2000"
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/iowait_upper_limit 1536000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/rtg_boost_freq 1228800
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/min_sample_time  18000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/overload_duration 100000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/irq_boost_freq 1411200
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/target_loads "80 1228800:95"
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/nl 0
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/pl 0
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_freq 1228800
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/above_hispeed_delay
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/iowait_upper_limit
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/rtg_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/min_sample_time
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/overload_duration
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/irq_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/target_loads
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_load
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/rate_limit_us
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/fl
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/pl
+
+    write /sys/devices/system/cpu/cpufreq/policy2/scaling_governor xres
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/above_hispeed_delay 1000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/iowait_upper_limit 1891200
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/rtg_boost_freq 1536000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/min_sample_time 18000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/overload_duration 100000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/irq_boost_freq 1536000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/target_loads 90
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/nl 0
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/pl 0
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_freq 1718400
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/above_hispeed_delay
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/iowait_upper_limit
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/rtg_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/min_sample_time
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/overload_duration
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/irq_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/target_loads
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_load
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/rate_limit_us
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/fl
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/pl
+
+    write /sys/devices/system/cpu/cpufreq/policy4/scaling_governor xres
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/above_hispeed_delay "2000 2544000:4000"
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/iowait_upper_limit 2544000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/rtg_boost_freq 2544000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/min_sample_time 18000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/overload_duration 150000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/irq_boost_freq 2544000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/target_loads "90 2544000:95"
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/nl 0
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/pl 1
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/rate_limit_us 2000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_freq 1728000
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/above_hispeed_delay
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/iowait_upper_limit
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/rtg_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/min_sample_time
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/overload_duration
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/irq_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/target_loads
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_load
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/rate_limit_us
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/fl
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/pl
+
+    write /sys/devices/system/cpu/cpufreq/policy8/scaling_governor xres
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/above_hispeed_delay "2000 2592000:4000"
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/iowait_upper_limit 2793600
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/rtg_boost_freq 2400000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/min_sample_time 18000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/overload_duration 150000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/irq_boost_freq 2793600
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/target_loads "90 2793600:95"
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/nl 0
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/pl 0
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/rate_limit_us 2000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_freq 2592000
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/above_hispeed_delay
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/iowait_upper_limit
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/rtg_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/min_sample_time
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/overload_duration
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/irq_boost_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/target_loads
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_load
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/rate_limit_us
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/fl
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/pl
+    write /sys/block/sdc/queue/scheduler cpq
+
+    chown root system /sys/devices/system/cpu/cpu8/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu8/cpuidle/state2/disable
+    chown root system /sys/devices/system/cpu/cpu9/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu9/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu8/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu8/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu9/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu9/cpuidle/state2/disable
+
+on property:ro.product.brand=xring
+    write /sys/module/xr_pmic/mntn/vbd_ctrl_en 0
+
+# MIUI ADD: FileSystem_fastDiscard
+on property:persist.sys.stability.fastdiscard=off
+    write /sys/block/sdc/queue/max_discard_segments 1
+# END: FileSystem_fastDiscard
