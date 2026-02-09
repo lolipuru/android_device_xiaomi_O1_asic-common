@@ -20,6 +20,7 @@ odm/etc/audio/sku_xring/audio_route_config.xml
 vendor/lib64/libaudiocloudctrl.so
 vendor/lib64/libaudiomisight.so
 vendor/lib64/libmisight.so
+vendor/lib64/libmips.so
 vendor/lib64/libmis6_legacyap.so
 vendor/lib64/libmisoundfx_aidl_ext.so;SYMLINK=vendor/lib64/soundfx/libmisoundfx_aidl.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/xring.hardware.audio.parameter-V1-ndk.so
@@ -31,6 +32,12 @@ vendor/apex/com.android.hardware.thermal.xring.apex
 # Batterysecret
 vendor/bin/batterysecret
 vendor/etc/init/hw/init.batterysecret.rc
+
+# Bluetooth
+vendor/firmware/BT_RAM_CODE_MT6639_x12_dx3_1_hdr.bin
+vendor/lib64/libbluetooth_mtk.so
+vendor/lib64/libbluetooth_mtk_pure.so
+vendor/lib64/libbt-vendor.so
 
 # Boot (Ramdisk)
 recovery/ramdisk/system/bin/hw/android.hardware.boot-service.xring.recovery;MAKE_COPY_RULE_ONLY
@@ -45,13 +52,238 @@ vendor/bin/hw/android.hardware.boot-service.xring
 vendor/etc/init/android.hardware.boot-service.xring.rc
 vendor/etc/vintf/manifest/android.hardware.boot-service.xring.xml
 
-# mitee
-odm/etc/init/vendor.xiaomi.hardware.mikeybag-miteeservice.rc
+# Citsensor
+odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl
+odm/etc/init/vendor.xiaomi.sensor.citsensorservice.aidl.rc
+odm/etc/vintf/manifest/vendor.xiaomi.sensor.citsensorservice.aidl.xml
+odm/lib64/libclient2slpi.notifier.so
+vendor/lib64/vendor.xiaomi.sensor.citsensorservice-V1-ndk.so
+
+# Connectivity
+vendor/bin/conninfra_loader
+vendor/firmware/conninfra.cfg
+odm/firmware/txpowerctrl.cfg
+
+# Display
+vendor/bin/hw/android.hardware.graphics.allocator-V2-service
+vendor/bin/hw/android.hardware.graphics.composer3-service.xring
+vendor/etc/init/android.hardware.graphics.allocator-V2-service.rc
+vendor/etc/vintf/manifest/manifest_allocator.xml
+vendor/etc/vintf/manifest/manifest_composerext.xml
+vendor/etc/vintf/manifest/manifest_hwctuning.xml
+vendor/etc/vintf/manifest/manifest_jpeg.xml
+vendor/etc/vintf/manifest/mapper.xring.xml
+vendor/lib64/hw/android.hardware.graphics.allocator-V2-xring.so
+vendor/lib64/hw/mapper.xring.so
+vendor/lib64/libBlAlgointf.so
+vendor/lib64/libcoloralgorithm.so
+vendor/lib64/libcolormanager.so
+vendor/lib64/libstripecore.so
+vendor/lib64/libxdmcore.so
+vendor/lib64/libxdmresourcemanager.so
+vendor/lib64/vendor.xring.hardware.display.composerext-V1-ndk.so
+vendor/lib64/vendor.xring.hardware.display.hwctuning-V1-ndk.so
+
+# Displayfeature
+odm/lib64/hw/displayfeature.default.so
+odm/lib64/libadaptivehdr.so
+odm/lib64/libcolortempmode.so
+odm/lib64/libdisplaycount.so
+odm/lib64/libdisplaylog.so
+odm/lib64/libdither.so
+odm/lib64/libeyecare.so
+odm/lib64/libflatmode.so
+odm/lib64/libhistprocess.so
+odm/lib64/libmi_dspp.so
+odm/lib64/libmiBrightness.so
+odm/lib64/libMiDispDevManager.so
+odm/lib64/libmieventnodewatch.so
+odm/lib64/libmiSensorCtrl.so
+odm/lib64/libmiXmlParser.so
+odm/lib64/libpaperMode.so
+odm/lib64/librhytheyecare.so
+odm/lib64/libsdr2hdr.so
+odm/lib64/libsre.so
+odm/lib64/libtruetone.so
+odm/lib64/libvideomode.so
+vendor/bin/hw/vendor.xiaomi.hardware.displayfeature_aidl-service
+vendor/etc/init/vendor.xiaomi.hardware.displayfeature_aidl-service.rc
+vendor/etc/vintf/manifest/vendor.xiaomi.hardware.displayfeature_aidl-service.xml
+vendor/lib64/libdfintf.so
+vendor/lib64/libdisplayfeature.so
+vendor/lib64/libdisplayfeatureservice.so
+vendor/lib64/vendor.xiaomi.hardware.displayfeature_aidl-V2-ndk.so
+
+# DRM
+vendor/apex/com.google.android.widevine.nonupdatable.apex
+vendor/lib64/liboemcrypto.so
+
+# Fidoca
+odm/bin/fidoca_mitee
+odm/etc/init/vendor.xiaomi.hardware.mfidoca-miteeservice.rc
+odm/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.mfidoca.xml
+odm/lib64/libmfido_mitee.so
+vendor/lib64/vendor.xiaomi.hardware.mfidoca-V1-ndk.so
+
+# Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper-service.mitee
-vendor/bin/hw/android.hardware.security.keymint@3.0-service.mitee
 vendor/etc/init/android.hardware.gatekeeper-service.mitee.rc
-vendor/etc/init/android.hardware.security.keymint.mitee@3.0-service.rc
 vendor/etc/vintf/manifest/android.hardware.gatekeeper-service.mitee.xml
+
+# Graphics (Xring)
+vendor/bin/hw/vendor.xring.graphics.gcb-service
+vendor/etc/gpu/vulkan_blur/gaussian_blur.bin
+vendor/etc/gralloc/vulkan_games_name
+vendor/etc/init/gcb.rc
+vendor/etc/vintf/manifest/gcb.xml
+vendor/lib64/egl/libGLES_gamingplus.so
+vendor/lib64/egl/libGLES_mali.so
+vendor/lib64/hw/vulkan.gamingplus.so
+vendor/lib64/hw/vulkan.mali.so
+vendor/lib64/libc++_shared.so
+vendor/lib64/libgcbclienthelper.so
+vendor/lib64/libgcbcore.so
+vendor/lib64/libgpuprocessor.so
+vendor/lib64/libopencl_loader.so
+vendor/lib64/libOpenCL.so
+vendor/lib64/libopencv_core_se.so
+vendor/lib64/libopencv_core.so
+vendor/lib64/libopencv_imgproc_se.so
+vendor/lib64/libopencv_imgproc.so
+vendor/lib64/libxrdmabufhelper.so
+vendor/lib64/vendor.xring.graphics.gcb-V1-ndk.so
+vendor/lib64/vendor.xring.hardware.gamingplus-V1-ndk.so
+
+# GNSS
+vendor/bin/hw/android.hardware.gnss-service.mediatek
+vendor/etc/gnss/agps_profiles_conf2.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_ATnT_Mexico.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_ATnT_US.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_CBN.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Claro_Peru.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_CMCC.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_CT.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_CU.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Entel_Peru.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_KDDI.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_SK_Telecom.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_SoftBank.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Sprint.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_T-Mobile_US.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Test_SIM1.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Test_SIM2.xml
+vendor/etc/gnss/carrier/agps_profiles_conf2_carrier_Verizon_Wireless.xml
+vendor/etc/init/android.hardware.gnss-service.mediatek.rc
+vendor/etc/init/init.gps_scp.rc
+vendor/etc/MNL_Config.xml
+vendor/etc/mpe.conf
+vendor/etc/vintf/manifest/gnss-default.xml:vendor/etc/vintf/manifest/gnss-mtk-default.xml
+vendor/etc/vintf/manifest/gnss-mtk.xml
+vendor/lib64/hw/android.hardware.gnss-impl-mediatek.so
+vendor/lib64/hw/geofence_hal.so
+vendor/lib64/hw/gps.default.so
+vendor/lib64/hw/mtkgeofence.default.so
+vendor/lib64/hw/vendor.mediatek.hardware.gnss-impl.so
+vendor/lib64/vendor.mediatek.hardware.gnss-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.lbs@1.0.so
+vendor/lib64/vendor.mediatek.hardware.lbs-V1-ndk.so
+
+# inteligent service
+vendor/bin/hw/vendor.xring.intelligent-service
+vendor/etc/init/vendor.xring.intelligent-service.rc
+vendor/etc/vintf/manifest/vendor.xring.intelligent-service.xml
+vendor/lib64/vendor.xring.intelligent-V1-ndk.so
+
+# Neural Engine
+vendor/lib64/libArchModelSw.so
+vendor/lib64/libGAL.so
+vendor/lib64/libmimodelsecurity.so
+vendor/lib64/libmnne_crypto.so
+vendor/lib64/libNBGlinker.so
+vendor/lib64/libNNArchPerf.so
+vendor/lib64/libNPURuntime_wrapper.so
+vendor/lib64/libNPURuntime.so
+vendor/lib64/libOpenVX.so
+vendor/lib64/libOpenVXU.so
+vendor/lib64/libOvx12VXCBinary.so
+vendor/lib64/libOvxGPUVXCBinary.so
+vendor/lib64/libovxlib.so
+vendor/lib64/libsentencepiece.so
+vendor/lib64/libVSC.so
+vendor/lib64/libxnn_cpu.so
+vendor/lib64/libxnn_gpu.so
+vendor/lib64/libxnn_llm.so
+vendor/lib64/libxnn_mapping.so
+vendor/lib64/libxnn_op.so
+vendor/lib64/libxnn.so
+
+# NVRAM
+vendor/bin/hw/vendor.mediatek.hardware.nvram-service
+vendor/bin/nvram_daemon
+vendor/etc/init/nvram_daemon.rc
+vendor/etc/init/vendor.mediatek.hardware.nvram-sevice.rc
+vendor/lib64/hw/vendor.mediatek.hardware.nvram-impl.so
+vendor/lib64/libconnfem.so
+vendor/lib64/libcustom_nvram.so
+vendor/lib64/libfile_op.so
+vendor/lib64/libnvram.so
+vendor/lib64/libnvram_sec.so
+vendor/lib64/vendor.mediatek.hardware.nvram-V1-ndk.so
+
+# MiCharge
+vendor/bin/hw/vendor.xiaomi.hardware.micharge-service
+vendor/etc/init/vendor.xiaomi.hardware.micharge-service.rc
+vendor/etc/vintf/manifest/vendor.xiaomi.hardware.micharge.xml
+vendor/lib64/vendor.xiaomi.hardware.micharge-V2-ndk.so
+
+# Media (C2)
+system/lib64/libstagefright_bufferqueue_helper.so:vendor/lib64/libstagefright_bufferqueue_helper-v35.so;FIX_SONAME
+vendor/bin/hw/android.hardware.media.c2@1.2-service-x
+vendor/etc/init/android.hardware.media.c2@1.2-service-x.rc
+vendor/etc/seccomp_policy/android.hardware.media.c2@1.2-extended-seccomp-policy
+vendor/etc/seccomp_policy/android.hardware.media.c2@1.2-x-seccomp_policy
+vendor/etc/vintf/manifest/manifest_media_c2_default.xml
+vendor/lib64/libcodec2_hidl@1.0.so:vendor/lib64/libcodec2_hidl@1.0-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_hidl@1.1.so:vendor/lib64/libcodec2_hidl@1.1-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_hidl@1.2.so:vendor/lib64/libcodec2_hidl@1.2-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_hidl_plugin.so:vendor/lib64/libcodec2_hidl_plugin-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_x_c2store.so
+vendor/lib64/libcodec2_x_vdec.so
+vendor/lib64/libcodec2_x_venc.so
+vendor/lib64/libcodec2_soft_common.so:vendor/lib64/libcodec2_soft_common-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_vndk.so:vendor/lib64/libcodec2_vndk-v35.so;FIX_SONAME
+vendor/lib64/libcodec2_vpp_x_aie_plugin.so
+vendor/lib64/libcodec2_vpp_x_frc_plugin.so
+vendor/lib64/libcodec2_vpp_x_rs_plugin.so
+vendor/lib64/libjpeg_x_sdk.so
+vendor/lib64/libjpeg_x_server.so
+vendor/lib64/libjpeg.so
+vendor/lib64/libmifrc.so
+vendor/lib64/libmisr.so;DISABLE_CHECKELF
+vendor/lib64/libsfplugin_ccodec_utils.so:vendor/lib64/libsfplugin_ccodec_utils-v35.so;FIX_SONAME
+
+# Media (Xiaomi)
+vendor/bin/hw/android.hardware.media.c2-mi-service
+vendor/etc/media_codecs_mi_c2_audio.xml
+vendor/etc/init/android.hardware.media.c2-mi-service.rc
+vendor/etc/vintf/manifest/media_c2_mi.xml
+vendor/lib64/libcodec2_soft_aivc_dec.so
+vendor/lib64/libcodec2_soft_aivc_enc.so
+vendor/lib64/libcodec2_soft_mihc_dec.so
+vendor/lib64/libcodec2_soft_mihc_enc.so
+vendor/lib64/libcodec2_store_mi.so
+
+# Mlipay
+odm/bin/mlipayd_mitee
+odm/etc/init/vendor.xiaomi.hardware.mlipay-miteeservice.rc
+odm/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.mlipay.xml
+odm/lib64/libmlipay_mitee.so
+vendor/lib64/vendor.xiaomi.hardware.mlipay-V1-ndk.so
+
+# Mitee
+odm/etc/init/vendor.xiaomi.hardware.mikeybag-miteeservice.rc
+vendor/bin/hw/android.hardware.security.keymint@3.0-service.mitee
+vendor/etc/init/android.hardware.security.keymint.mitee@3.0-service.rc
 vendor/etc/vintf/manifest/android.hardware.security.keymint-service.mitee.xml
 vendor/etc/vintf/manifest/android.hardware.security.secureclock-service.mitee.xml
 vendor/etc/vintf/manifest/android.hardware.security.sharedsecret-service.mitee.xml
@@ -68,7 +300,25 @@ vendor/mitee/ta/dba51a17-0563-11e7-93b16fa7b0071a51.ta
 vendor/mitee/ta/e97c270e-a5c4-4c58-bcd3384a2fa2539e.ta
 vendor/mitee/ta/efff4308-e6cb-42b0-ac5aa97eee959dc5.ta
 
-# PerfFlinger
+# Modules
+vendor/bin/init.insmod.sh
+
+# Mtdservice
+odm/bin/mtd_mitee
+odm/etc/init/vendor.xiaomi.hardware.aidl.mtdservice-miteeservice.rc
+odm/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.aidl.mtdservice.xml
+odm/lib64/libmt_mitee.so
+vendor/lib64/vendor.xiaomi.hardware.aidl.mtdservice-V1-ndk.so
+
+# Perf
+odm/etc/vintf/manifest/vendor.xiaomi.hardware.pqservice-service.xml
+odm/etc/vintf/manifest/vendor.xiaomi.hardware.prepqservice-service.xml
+odm/lib64/libpqservice.so
+odm/lib64/libprepqservice.so
+vendor/lib64/vendor.xiaomi.hardware.pqservice-V1-ndk.so
+vendor/lib64/vendor.xiaomi.hardware.prepqservice-V1-ndk.so
+
+# Perfflinger
 vendor/bin/hw/vendor.xring.hardware.perfflinger.service
 vendor/etc/init/vendor.xring.hardware.perfflinger.rc
 vendor/etc/vintf/manifest/vendor.xring.hardware.perfflinger.xml
@@ -80,6 +330,157 @@ vendor/lib64/libperfflinger_utils.so
 vendor/lib64/vendor.xring.hardware.perfflinger-V1-ndk.so
 vendor/lib64/xring.perfflinger.wrapper.so;DISABLE_CHECKELF
 
+# Public libraries
+vendor/etc/public.libraries.txt
+
+# Radio
+vendor/bin/hw/mtkfusionrild
+vendor/etc/ecc_list.xml
+vendor/etc/init/mtkrild.rc
+vendor/etc/special_pws_channel.xml
+vendor/etc/virtual-spn-conf-by-efgid1.xml
+vendor/etc/virtual-spn-conf-by-efpnn.xml
+vendor/etc/virtual-spn-conf-by-efspn.xml
+vendor/etc/virtual-spn-conf-by-imsi.xml
+vendor/lib64/libcarrierconfig.so
+vendor/lib64/libccci_util.so
+vendor/lib64/libmipc.so
+vendor/lib64/libmtkconfig.so
+vendor/lib64/libmtkconfigutils.so
+vendor/lib64/libmtkcutils.so
+vendor/lib64/libmtk-fusion-ril-prop-vsim.so
+vendor/lib64/libmtkhardware_legacy.so
+vendor/lib64/libmtkmipc-rilop.so
+vendor/lib64/libmtkmipc-ril.so
+vendor/lib64/libmtknetutils.so
+vendor/lib64/libmtkproperty.so
+vendor/lib64/libmtkrillog.so
+vendor/lib64/libmtk-ril.so
+vendor/lib64/libmtkrilutils.so
+vendor/lib64/libmtksysutils.so
+vendor/lib64/libmtktinyxml.so
+vendor/lib64/libmtkutils.so
+vendor/lib64/libratconfig.so
+vendor/lib64/librilfusion.so
+vendor/lib64/libsysenv.so
+vendor/lib64/libtrm.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.assist-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.atci-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.cap-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.data-V3-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.dch-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.em-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.ims-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.messaging-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.modem-V3-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.mwi-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.network-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.rcs-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.rsu-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.se-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.sim-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.sim-V2-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.smartratswitch-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.mtkradioex.voice-V1-ndk.so
+
+# Radio (Engineer Mode)
+system_ext/app/EngineerMode/EngineerMode.apk
+system_ext/lib64/libem_support_jni.so
+vendor/bin/em_hidl
+vendor/etc/init/em_hal_user.rc
+vendor/etc/vintf/manifest/em_hal_service.xml
+vendor/lib64/libbluetooth_relayer.so
+vendor/lib64/libbluetoothem_mtk.so
+vendor/lib64/vendor.mediatek.hardware.engineermode-V1-ndk.so
+
+# Radio (IMS)
+system_ext/bin/vtservice
+system_ext/etc/init/init.vtservice.rc
+system_ext/framework/mediatek-carrier-config-manager.jar
+system_ext/framework/mediatek-common.jar
+system_ext/framework/mediatek-framework.jar
+system_ext/framework/mediatek-ims-base.jar
+system_ext/framework/mediatek-ims-common.jar
+system_ext/framework/mediatek-ims-extension-plugin.jar
+system_ext/framework/mediatek-telecom-common.jar
+system_ext/framework/mediatek-telephony-base.jar
+system_ext/framework/mediatek-telephony-common.jar
+system_ext/lib64/libcomutils.so
+system_ext/lib64/libimsma.so
+system_ext/lib64/libimsma_adapt.so
+system_ext/lib64/libimsma_rtp.so
+system_ext/lib64/libimsma_socketwrapper.so
+system_ext/lib64/libmtk_vt_service.so
+system_ext/lib64/libmtk_vt_wrapper.so
+system_ext/lib64/libsignal.so
+system_ext/lib64/libsink.so:system_ext/lib64/libsink-mtk.so;FIX_SONAME
+system_ext/lib64/libsource.so
+system_ext/lib64/libvcodec_cap.so
+system_ext/lib64/libvcodec_capenc.so
+system_ext/lib64/libvt_avsync.so
+system_ext/lib64/vendor.mediatek.hardware.videotelephony-V1-ndk.so
+system_ext/lib64/vendor.mediatek.hardware.videotelephony@1.0.so
+system_ext/priv-app/ImsService/ImsService.apk
+system_ext/priv-app/MtkGbaService/MtkGbaService.apk
+vendor/bin/hw/vtservice_aidl
+vendor/etc/init/init.vtservice_aidl.rc
+vendor/lib64/hw/vendor.mediatek.hardware.videotelephony-impl.so
+vendor/lib64/vendor.mediatek.hardware.videotelephony-V1-ndk.so;MODULE_SUFFIX=-vendor
+
+# Secure Element
+vendor/bin/hw/android.hardware.secure_element@1.2-service-mediatek
+vendor/bin/hw/vendor.xiaomi.hardware.secure_element-service
+vendor/etc/init/android.hardware.secure_element@1.2-service-mediatek.rc
+vendor/etc/init/secure_element-service.rc
+vendor/lib64/libmigpese@2.0.so
+
+# Sensors
+odm/etc/sensors/config/5cm_blue.png
+odm/etc/sensors/config/5cm_gray.png
+odm/etc/sensors/config/5cm_green.png
+odm/etc/sensors/config/5cm_red.png
+odm/etc/sensors/config/5cm_white.png
+odm/etc/sensors/config/center_cali_all.png
+odm/etc/sensors/config/center_cali_x.png
+odm/etc/sensors/config/center_cali_y.png
+odm/etc/sensors/config/extois_algo.json
+odm/etc/sensors/config/hx9035.json
+odm/etc/sensors/config/lightSensorConfig.json
+odm/etc/sensors/config/lsm6dso_0.json
+odm/etc/sensors/config/lsm6dso_1.json
+odm/etc/sensors/config/lsm6dsv320x_0.json
+odm/etc/sensors/config/pickup.json
+odm/etc/sensors/config/qmc6308.json
+odm/etc/sensors/config/rotv.json
+odm/etc/sensors/config/saralgo.json
+odm/etc/sensors/config/sip2326.json
+odm/etc/sensors/config/spl07.json
+odm/etc/sensors/config/tcs3720.json
+odm/etc/sensors/config/vi5301.json
+vendor/etc/permissions/com.xiaomi.sensor.xml
+vendor/lib64/hw/xr_calibration.so
+vendor/lib64/hw/xr_sensor_client.so
+vendor/lib64/hw/xr_sensor_hal.so
+
+# Tether Offload
+vendor/bin/netdagent
+vendor/etc/init/netdagent.rc
+vendor/etc/vintf/manifest/CommandService.xml
+vendor/lib64/libforkexecwrap.so
+vendor/lib64/libifcutils_mtk.so
+vendor/lib64/vendor.mediatek.hardware.netdagent-V1-ndk.so
+vendor/lib64/vendor.mediatek.hardware.netdagent@1.0.so
+
+# Tidaservice
+odm/bin/tidad_mitee
+odm/etc/init/vendor.xiaomi.hardware.aidl.tidaservice-miteeservice.rc
+odm/lib64/libtida_mitee.so
+vendor/lib64/vendor.xiaomi.hardware.aidl.tidaservice-V1-ndk.so
+
+# Thermal
+vendor/bin/mi_thermald
+vendor/etc/init/hw/init.mi_thermald.rc
+
 # USB
 vendor/bin/hw/android.hardware.usb-service.xring
 vendor/bin/hw/android.hardware.usb.gadget-service.xring
@@ -87,3 +488,20 @@ vendor/etc/init/android.hardware.usb-service.xring.rc
 vendor/etc/init/android.hardware.usb.gadget-service.xring.rc
 vendor/etc/vintf/manifest/android.hardware.usb-service.xring.xml
 vendor/etc/vintf/manifest/android.hardware.usb.gadget-service.xring.xml
+
+# VPU
+vendor/bin/vendor.xring.vpu.service
+vendor/etc/init/v4l2-xring-daemon-service-x.rc
+vendor/lib64/libvpucommon.so
+vendor/lib64/libvpudec.so
+vendor/lib64/libvpuenc.so
+vendor/lib64/vendor.xring.hardware.graphics.vpu.jpeg-V1-ndk.so
+
+# Wi-Fi
+odm/firmware/wifi.cfg
+vendor/bin/wlan_assistant
+vendor/etc/init/init.wlan_drv.rc
+vendor/etc/init/wlan_assistant.rc
+vendor/etc/wifi/p2p_supplicant_overlay.conf
+vendor/etc/wifi/wpa_supplicant.conf
+vendor/etc/wifi/wpa_supplicant_overlay.conf
