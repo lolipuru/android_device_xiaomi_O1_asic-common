@@ -1,0 +1,124 @@
+# For Partition Permission Adjustment
+
+# Xring Mali GPU node
+/dev/mali0                0666   system     graphics
+
+# modem
+/dev/wwan*                0660   radio      system
+/dev/wwanD0MIPC6          0660   audio      audio
+/dev/wwanD0AUD            0660   audio      audio
+/dev/wwanD0Speech         0660   audio      audio
+/dev/ttyGS*               0660   radio      system
+/dev/block/by-name/nvram     0660    root    system
+/dev/block/by-name/proinfo   0660    root    system
+
+# Xring Audio
+/dev/xring_audio_tool     0660   audio      audio
+/dev/ttyGS1               0660   audio      audio
+/dev/ttyGS2               0660   audio      audio
+
+#connectivity
+/dev/conninfra_dev        0660   system     system
+
+# Xring Camera
+/dev/video*               0660   system     camera
+/dev/media*               0660   system     camera
+/dev/edr_device           0660   system     camera
+/dev/vi530x               0660   system     camera
+/proc/xrisp_ramlog        0660   system     camera
+
+# USB role switch
+/sys/class/typec/port0              power_role                      0660    system  system
+/sys/class/typec/port0              data_role                       0660    system  system
+/sys/class/typec/port0              port_type                       0660    system  system
+/sys/class/typec/port0              power_operation_mode            0660    system  system
+/sys/class/typec/port0-partner      accessory_mode                  0660    system  system
+/sys/class/typec/port0-partner      supports_usb_power_delivery     0660    system  system
+
+# USB Dynamic Disable
+/sys/devices/platform/soc/e1ac0000.xr_usb    dynamic_mode    0660    root    usb
+
+# BT
+/dev/fw_log_btmcu         0660   system     system
+/dev/stpbt                0660   bluetooth  bluetooth
+/dev/fw_log_bt            0660   bluetooth  bluetooth
+
+# WIFI
+/dev/wmtWifi              0660   wifi     wifi
+/dev/fw_log_wifi          0660   wifi     wifi
+/dev/fw_log_ics           0660   wifi     wifi
+/dev/fw_log_wifimcu       0660   system   system
+/dev/coredump_wifi        0440   system   system
+/dev/sa_log_wifi          0660   wifi     wifi
+
+# Xring memory
+/dev/xr_dmabuf_helper     0444   system     system
+/dev/xr_meminfo           0444   system     system
+/dev/dma_heap/xring_cpa   0644   system     system
+/dev/dma_heap/xring_isp_faceid  0644    system  system
+/dev/dma_heap/xring_npu_dym     0644    system  system
+/dev/dma_heap/xring_tui_display 0644    system  system
+/dev/dma_heap/xring_tui_font    0644    system  system
+/dev/dma_heap/xring_heap_drm    0444    system  system
+
+# Xring npu qos
+/dev/npu_freq_qos_min     0666   system     system
+/dev/npu_freq_qos_max     0666   system     system
+
+# Xring Hpc
+/dev/xvp_queue            0444   system     system
+/dev/hpc-cdev             0444   system     system
+/dev/hpc-mdr              0666   system     system
+/dev/hpc-rpmsg            0666   system     system
+/dev/hpc-heap             0444   system     system
+/dev/ocm-buf              0444   system     system
+/dev/xrp-mdr              0666   system     system
+/dev/hpc-aon              0440   system     system
+/dev/hpc-mitee-crypto     0444   system     system
+
+# VPU
+/dev/video*               0660   system     camera
+/dev/xring_vpu_daemon     0660   system     camera
+/dev/xring_vdec           0660   system     camera
+/dev/xring_venc           0660   system     camera
+/dev/xring_vpu_memmap     0660   system     camera
+
+# xiaomi display feature
+subsystem mi_display
+    devname uevent_devpath
+    dirname /dev/mi_display
+
+# xiaomi display feature
+/dev/mi_display/*         0666   root       graphics
+
+#wfd
+/dev/xplayer              0660   system     graphics
+
+#veu
+/dev/veu                  0660   system     system
+
+#sensorhub
+/dev/app_router_hal       0660   system     system
+/dev/direct_channel       0660   system     system
+/dev/shub_aoc_dump        0660   system     system
+/dev/shub_log             0660   root       system
+
+on property:ro.debuggable=1
+    /dev/chre_router          0660   system     system
+
+#launch boost
+/dev/launch_boost	  0660	 system	    system
+
+#cpufreq_xres
+/sys/devices/system/cpu/cpu* cpufreq/xres/above_hispeed_delay      0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/hispeed_freq             0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/hispeed_load             0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/iowait_upper_limit       0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/irq_boost_freq           0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/min_sample_time          0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/overload_duration        0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/rate_limit_us            0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/rtg_boost_freq           0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/target_loads             0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/fl                       0664    root   system
+/sys/devices/system/cpu/cpu* cpufreq/xres/pl                       0664    root   system
