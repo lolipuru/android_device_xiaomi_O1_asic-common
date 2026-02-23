@@ -20,5 +20,8 @@ bluetooth.profile.ccp.server.enabled=true
 bluetooth.profile.csip.set_coordinator.enabled=true
 bluetooth.profile.vcp.controller.enabled=true
 
+# F2FS
+persist.fsck.disable_linear_lookup=on
+
 # RKPD
 remote_provisioning.hostname=remoteprovisioning.googleapis.com
