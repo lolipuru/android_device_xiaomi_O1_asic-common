@@ -35,7 +35,7 @@ TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := cortex-a76
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := dijun
+TARGET_BOOTLOADER_BOARD_NAME := O1_asic
 TARGET_NO_BOOTLOADER := true
 
 # Kernel
@@ -93,7 +93,7 @@ $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE :=
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
 # Platform
-TARGET_BOARD_PLATFORM := mt6985
+TARGET_BOARD_PLATFORM := O1_asic
 
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
