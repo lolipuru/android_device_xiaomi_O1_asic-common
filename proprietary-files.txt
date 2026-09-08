@@ -126,6 +126,12 @@ vendor/lib64/libxdmresourcemanager.so
 vendor/lib64/vendor.xring.hardware.display.composerext-V1-ndk.so
 vendor/lib64/vendor.xring.hardware.display.hwctuning-V1-ndk.so
 
+# Display (Config)
+product/etc/displayconfig/common_multi_factor_thermal_brightness_control.xml:vendor/etc/displayconfig/common_multi_factor_thermal_brightness_control.xml
+product/etc/displayconfig/display_id_0.xml:vendor/etc/displayconfig/display_id_0.xml
+product/etc/displayconfig/game_app_category_list_backup.xml:vendor/etc/displayconfig/game_app_category_list_backup.xml
+product/etc/displayconfig/rhythmic_app_category_list_backup.xml:vendor/etc/displayconfig/rhythmic_app_category_list_backup.xml
+
 # Displayfeature
 odm/lib64/hw/displayfeature.default.so
 odm/lib64/libadaptivehdr.so
