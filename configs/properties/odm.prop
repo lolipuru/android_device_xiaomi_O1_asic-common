@@ -1,0 +1,10 @@
+# Camera
+debug.config.video.p3.encode.support=true
+debug.config.video.p3.decode.support=true
+
+# Charger
+ro.vendor.xring.pd.verify=1
+persist.vendor.accelerate.charge=true
+
+# Thermal
+persist.vendor.tracking.dfs=true

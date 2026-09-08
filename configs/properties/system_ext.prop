@@ -1,0 +1,10 @@
+# Audio
+ro.audio.ihaladaptervendorextension_enabled=true
+
+# GNSS
+persist.sys.gps.fence=true
+persist.sys.gps.xringgeofence=true
+persist.sys.xring-perf.parallel-decompress=true
+
+# Init
+# ro.xring.boot.init_rc=/system/etc/init/hw/xring_init.rc
