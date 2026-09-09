@@ -1,0 +1,13 @@
+# Camera
+vendor.xring.camera.                u:object_r:vendor_camera_prop:s0
+
+# Gralloc
+vendor.xring.gralloc.afbc_enable u:object_r:vendor_xring_gralloc_prop:s0 exact string
+vendor.xring.gralloc.afbc_scramble u:object_r:vendor_xring_gralloc_prop:s0 exact string
+
+# mitee
+ro.vendor.xring_mitee_support u:object_r:vendor_xring_mitee_prop:s0
+
+# VPU
+vendor.xring.vpu.     u:object_r:vendor_vpu_prop:s0
+ro.vendor.xring.video.      u:object_r:vendor_vpu_prop:s0

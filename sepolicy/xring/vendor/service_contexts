@@ -1,0 +1,7 @@
+# Graphics
+vendor.xring.hardware.display.hwctuning.IHwcTuning/default                u:object_r:hal_graphics_composer_tuning_service:s0
+vendor.xring.hardware.display.composerext.IComposerExt/default            u:object_r:hal_graphics_composer_ext_service:s0
+mapper/xring      u:object_r:hal_graphics_mapper_service:s0
+
+# Perf
+vendor.xring.hardware.perfflinger.IPerfFlinger/default  u:object_r:hal_perfflinger_default_service:s0

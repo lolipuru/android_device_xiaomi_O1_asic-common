@@ -112,7 +112,7 @@ VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
 # SELinux
 include device/mediatek/sepolicy_vndr/SEPolicy.mk
-BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/
+include device/xiaomi/o1_asic-common/sepolicy/Android.mk
 
 # Verified Boot
 BOARD_AVB_ENABLE := true

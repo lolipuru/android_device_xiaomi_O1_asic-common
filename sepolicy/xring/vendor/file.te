@@ -1,0 +1,45 @@
+# Block devices
+type adsp_block_device, dev_type;
+type bl2_block_device, dev_type;
+type bl31_block_device, dev_type;
+type boot_logo_block_device, dev_type;
+type ddr_param_block_device, dev_type;
+type hdcp_block_device, dev_type;
+type init_boot_block_device, dev_type;
+type isp_block_device, dev_type;
+type logfs_block_device, dev_type;
+type lpctrl_block_device, dev_type;
+type npu_block_device, dev_type;
+type sap_block_device, dev_type;
+type sec_dtbo_block_device, dev_type;
+type sensorhub_block_device, dev_type;
+type uefi_block_device, dev_type;
+type xctrl_cpu_block_device, dev_type;
+type xctrl_ddr_block_device, dev_type;
+type xhee_block_device, dev_type;
+type xloader_block_device, dev_type;
+type xrse_block_device, dev_type;
+type xspm_block_device, dev_type;
+type xsps_block_device, dev_type;
+
+# Devices
+type npu_service_device, dev_type;
+type perf_actuator_device, dev_type;
+
+# Flash
+type sysfs_flash, fs_type, sysfs_type;
+
+# Graphics
+type xr_gpufreq_t, fs_type, sysfs_type;
+
+# LPS
+type low_power_xring_state_t, fs_type, sysfs_type;
+
+# NPU
+type xr_npu_freq_t, fs_type, sysfs_type;
+
+# UFS
+type bootlu_sel, fs_type, sysfs_type;
+type sysfs_userdata_partition_ufs, fs_type, sysfs_type;
+type sysfs_zoned_ufs, fs_type, sysfs_type;
+

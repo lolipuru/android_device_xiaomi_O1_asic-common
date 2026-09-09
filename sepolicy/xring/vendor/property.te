@@ -1,0 +1,11 @@
+# Camera
+vendor_public_prop(vendor_camera_prop)
+
+# Gralloc
+vendor_public_prop(vendor_xring_gralloc_prop)
+
+# mitee
+vendor_public_prop(vendor_xring_mitee_prop)
+
+# VPU
+vendor_public_prop(vendor_vpu_prop)

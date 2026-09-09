@@ -1,0 +1,98 @@
+# Alarm
+/vendor/bin/hw/vendor\.xring\.hardware\.alarm-service    u:object_r:hal_alarm_default_exec:s0
+
+# Block devices
+/dev/block/by-name/xhee_[ab]           u:object_r:xhee_block_device:s0
+/dev/block/by-name/xrse_[ab]           u:object_r:xrse_block_device:s0
+/dev/block/by-name/xspm_[ab]           u:object_r:xspm_block_device:s0
+/dev/block/by-name/xsps_[ab]           u:object_r:xsps_block_device:s0
+/dev/block/by-name/xloader_[ab]        u:object_r:xloader_block_device:s0
+/dev/block/by-name/xctrl_cpu_[ab]      u:object_r:xctrl_cpu_block_device:s0
+/dev/block/by-name/xctrl_ddr_[ab]      u:object_r:xctrl_ddr_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/frp                 u:object_r:frp_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/logfs               u:object_r:logfs_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/bl2_[ab]            u:object_r:bl2_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/isp_[ab]            u:object_r:isp_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/npu_[ab]            u:object_r:npu_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/sap_[ab]            u:object_r:sap_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/tee_[ab]            u:object_r:tee_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/adsp_[ab]           u:object_r:adsp_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/bl31_[ab]           u:object_r:bl31_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/boot_[ab]           u:object_r:boot_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/dtbo_[ab]           u:object_r:dtbo_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/hdcp_[ab]           u:object_r:hdcp_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/uefi_[ab]           u:object_r:uefi_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xhee_[ab]           u:object_r:xhee_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xrse_[ab]           u:object_r:xrse_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xspm_[ab]           u:object_r:xspm_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xsps_[ab]           u:object_r:xsps_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/modem_[ab]          u:object_r:md_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/pvmfw_[ab]          u:object_r:pvmfw_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/lpctrl_[ab]         u:object_r:lpctrl_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/vbmeta_[ab]         u:object_r:vbmeta_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/mcf_ota_[ab]        u:object_r:mcf_ota_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xloader_[ab]        u:object_r:xloader_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/recovery_[ab]       u:object_r:recovery_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/sec_dtbo_[ab]       u:object_r:sec_dtbo_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/boot_logo_[ab]      u:object_r:boot_logo_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/ddr_param_[ab]      u:object_r:ddr_param_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/init_boot_[ab]      u:object_r:init_boot_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/sensorhub_[ab]      u:object_r:sensorhub_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xctrl_cpu_[ab]      u:object_r:xctrl_cpu_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/xctrl_ddr_[ab]      u:object_r:xctrl_ddr_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/vendor_boot_[ab]    u:object_r:boot_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/vbmeta_system_[ab]  u:object_r:vbmeta_block_device:s0
+/dev/block/platform/soc/e1a40000.dwc_ufs/by-name/vbmeta_vendor_[ab]  u:object_r:vbmeta_block_device:s0
+
+# Boot
+/(vendor|system/vendor)/bin/hw/android\.hardware\.boot-service.xring      u:object_r:hal_bootctl_default_exec:s0
+
+# Camera
+/(vendor|system/vendor)/bin/hw/vendor\.xring\.camera\.provider-service  u:object_r:hal_camera_default_exec:s0
+
+# DMA
+/dev/dma_heap/xring_cpa                  u:object_r:dmabuf_system_heap_device:s0
+/dev/dma_heap/xring_heap_drm                u:object_r:dmabuf_system_heap_device:s0
+
+# DWC
+/sys/devices/platform/soc/e1a40000.dwc_ufs/host0/target0:0:0/0:0:0:2/block/sdc/queue/zoned                                 u:object_r:sysfs_zoned_ufs:s0
+/sys/devices/platform/soc/e1a40000.dwc_ufs/host0/target0:0:0/0:0:0:2/block/sdc/sdc.*/partition                             u:object_r:sysfs_userdata_partition_ufs:s0
+
+# Flash
+/sys/devices/platform/soc/soc:xrisp_cdm/xrisp_flash(/.*)?                  u:object_r:sysfs_flash:s0
+/sys/devices/platform/soc/soc:xrisp_cdm/xrisp_priv_led(/.*)?               u:object_r:sysfs_flash:s0
+
+# Graphics
+/(vendor|system/vendor)/bin/hw/vendor\.xring\.graphics\.gcb-service       u:object_r:hal_gcb_impl_exec:s0
+/vendor/bin/hw/android\.hardware\.graphics\.allocator-V2-service-xring u:object_r:hal_graphics_allocator_default_exec:s0
+/vendor/bin/hw/android\.hardware\.graphics\.composer3-service\.xring  u:object_r:hal_graphics_composer_default_exec:s0
+/vendor/lib(64)?/hw/android\.hardware\.graphics\.allocator-V2-xring\.so u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/hw/mapper\.xring\.so u:object_r:same_process_hal_file:s0
+/sys/devices/platform/gpufreq/devfreq/gpufreq/cur_freq                 u:object_r:xr_gpufreq_t:s0
+/sys/devices/platform/gpufreq/devfreq/gpufreq/max_freq                 u:object_r:xr_gpufreq_t:s0
+/sys/devices/platform/gpufreq/devfreq/gpufreq/gpufreq_usage            u:object_r:xr_gpufreq_t:s0
+
+# LPS
+/sys/devices/platform/x_sys_pm/xring_stats(/.*)?    u:object_r:low_power_xring_state_t:s0
+
+# NPU
+/dev/xrp-mdr                                        u:object_r:npu_service_device:s0
+/sys/devices/platform/npu_freq/devfreq/npu_freq/trans_stat             u:object_r:xr_npu_freq_t:s0
+
+# Perf
+/vendor/bin/hw/vendor\.xring\.hardware\.perfflinger\.service    u:object_r:hal_perfflinger_default_exec:s0
+/dev/xr_perf_actuator                                           u:object_r:perf_actuator_device:s0
+
+# UFS
+/sys/devices/platform/soc/e1a40000.dwc_ufs/xring-ufs/bootlu_sel  u:object_r:bootlu_sel:s0
+
+# USB
+/vendor/bin/hw/android.hardware.usb-service.xring               u:object_r:hal_usb_xring_exec:s0
+/vendor/bin/hw/android.hardware.usb.gadget-service.xring        u:object_r:hal_usb_gadget_xring_exec:s0
+
+# VPU
+/(vendor|system/vendor)/bin/vendor\.xring\.vpu\.service  u:object_r:vendor_xring_vpu_service_exec:s0
+/dev/xring_venc u:object_r:video_device:s0
+/dev/xring_vdec u:object_r:video_device:s0
+/dev/xring_vpu_daemon u:object_r:video_device:s0
+/dev/xring_vpu_memmap u:object_r:video_device:s0
