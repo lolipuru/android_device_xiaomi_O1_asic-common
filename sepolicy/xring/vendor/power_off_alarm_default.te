@@ -1,0 +1,15 @@
+type power_off_alarm_default, domain;
+type power_off_alarm_default_exec, exec_type, vendor_file_type, file_type;
+type power_off_alarm_default_service, service_manager_type;
+init_daemon_domain(power_off_alarm_default)
+
+binder_use(power_off_alarm_default)
+
+set_prop(power_off_alarm_default, powerctl_prop)
+
+allow power_off_alarm_default power_off_alarm_default_service:service_manager { add find };
+allow power_off_alarm_default rtc_device:chr_file rw_file_perms;
+allow power_off_alarm_default kmsg_device:chr_file rw_file_perms;
+allow power_off_alarm_default sysfs_rtc:dir search;
+allow power_off_alarm_default sysfs:file r_file_perms;
+allow power_off_alarm_default self:capability2 wake_alarm;

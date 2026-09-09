@@ -1,0 +1,1 @@
+binder_call(system_suspend_server, hal_intelligent_default)

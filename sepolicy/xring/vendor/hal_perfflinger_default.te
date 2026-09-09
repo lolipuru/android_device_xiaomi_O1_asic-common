@@ -1,0 +1,40 @@
+type hal_perfflinger_default, domain;
+type hal_perfflinger_default_exec, exec_type, vendor_file_type, file_type;
+type hal_perfflinger_default_service, hal_service_type, service_manager_type;
+
+init_daemon_domain(hal_perfflinger_default)
+
+binder_use(hal_perfflinger_default)
+set_prop(hal_perfflinger_default, vendor_perfflinger_prop)
+
+allow hal_perfflinger_default hal_perfflinger_default_service:service_manager { add find };
+allow hal_perfflinger_default perf_actuator_device:chr_file rw_file_perms;
+allow hal_perfflinger_default ddr_vote_device:chr_file rw_file_perms;
+allow hal_perfflinger_default cpnv_device:chr_file rw_file_perms;
+allow hal_perfflinger_default flowctrl_device:chr_file rw_file_perms;
+allow hal_perfflinger_default ddr_devfreq_device:file r_file_perms;
+allow hal_perfflinger_default xr_gpufreq_t:file rw_file_perms;
+allow hal_perfflinger_default xr_l3_devfreq_t:file r_file_perms;
+allow hal_perfflinger_default xr_npu_freq_t:file r_file_perms;
+allow hal_perfflinger_default sysfs_devices_system_cpu:file rw_file_perms;
+allow hal_perfflinger_default sysfs_memory:dir search;
+allow hal_perfflinger_default sysfs_memory:file { open write };
+allow hal_perfflinger_default sysfs_thermal:dir search;
+allow hal_perfflinger_default sysfs_thermal:file rw_file_perms;
+allow hal_perfflinger_default sysfs:file rw_file_perms;
+allow hal_perfflinger_default cgroup:file rw_file_perms;
+allow hal_perfflinger_default proc:file rw_file_perms;
+allow hal_perfflinger_default sys_thermal_boost:file rw_file_perms;
+allow hal_perfflinger_default self:capability kill;
+allow hal_perfflinger_default kernel:process setsched;
+allow hal_perfflinger_default {
+    hal_c2_x
+    hal_camera_default
+    hal_graphics_composer_default
+    hal_power_default
+    hal_schedgenius_default
+}:process signull;
+
+allow hal_perfflinger_default shell:fd use;
+allow hal_perfflinger_default vendor_data_file:dir create_dir_perms;
+allow hal_perfflinger_default vendor_data_file:file create_file_perms;

@@ -1,0 +1,3 @@
+binder_call(system_app, hal_intelligent_default)
+binder_call(system_app, hal_memtrack_xring)
+binder_call(system_app, hal_xplayer_default)

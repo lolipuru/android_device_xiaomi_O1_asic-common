@@ -1,0 +1,2 @@
+binder_call(cameraserver, hal_perfflinger_default)
+allow cameraserver hal_perfflinger_default_service:service_manager find;

@@ -1,0 +1,8 @@
+type shub_log_daemon, domain;
+type shub_log_daemon_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(shub_log_daemon)
+
+allow shub_log_daemon self:netlink_socket create_socket_perms_no_ioctl;
+allow shub_log_daemon shub_dfx_chr_device:chr_file rw_file_perms;
+allow shub_log_daemon xrlog_data_file:dir create_dir_perms;
+allow shub_log_daemon xrlog_data_file:file create_file_perms;

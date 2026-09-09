@@ -1,0 +1,2 @@
+allow netd hal_xplayer_default:fd use;
+allow netd hal_xplayer_default:{ tcp_socket udp_socket } { write setopt getopt read };

@@ -1,0 +1,7 @@
+binder_call(dumpstate, hal_alarm_default)
+binder_call(dumpstate, hal_gcb_impl)
+binder_call(dumpstate, hal_perfflinger_default)
+binder_call(dumpstate, hal_schedgenius_default)
+binder_call(dumpstate, hal_xplayer_default)
+
+allow dumpstate hal_xplayer_default:fd use;

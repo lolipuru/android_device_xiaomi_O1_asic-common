@@ -1,0 +1,7 @@
+binder_call(platform_app, hal_alarm_default)
+binder_call(platform_app, hal_perfflinger_default)
+binder_call(platform_app, power_off_alarm_default)
+
+allow platform_app hal_alarm_default_service:service_manager find;
+allow platform_app hal_perfflinger_default_service:service_manager find;
+allow platform_app power_off_alarm_default_service:service_manager find;

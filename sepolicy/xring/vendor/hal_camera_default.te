@@ -1,0 +1,14 @@
+binder_call(hal_camera_default, hal_gcb_impl)
+binder_call(hal_camera_default, hal_perfflinger_default)
+allow hal_camera_default hal_gcb_impl:fd use;
+
+allow hal_camera_default vendor_hal_gcb_service:service_manager { add find };
+allow hal_camera_default hal_perfflinger_default_service:service_manager find;
+allow hal_camera_default perf_actuator_device:chr_file rw_file_perms;
+allow hal_camera_default xr_gpufreq_t:dir r_dir_perms;
+allow hal_camera_default xr_gpufreq_t:file r_file_perms;
+allow hal_camera_default xr_npu_freq_t:dir r_dir_perms;
+allow hal_camera_default xr_npu_freq_t:file r_file_perms;
+
+set_prop(hal_camera_default, vendor_camera_prop)
+get_prop(hal_camera_default, vendor_xring_gralloc_prop)

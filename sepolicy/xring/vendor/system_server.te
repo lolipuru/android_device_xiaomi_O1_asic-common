@@ -1,0 +1,16 @@
+allow system_server hal_alarm_default:process signal;
+allow system_server hal_c2_x:process sigkill;
+allow system_server hal_gamingplus_impl:process signal;
+allow system_server hal_gcb_impl:process signal;
+allow system_server hal_intelligent_default:process signal;
+allow system_server hal_memtrack_xring:process signal;
+allow system_server hal_perfflinger_default:process { signal sigkill };
+allow system_server hal_schedgenius_default:process signal;
+allow system_server hal_usb_gadget_xring:process signal;
+allow system_server hal_usb_xring:process signal;
+allow system_server hal_xplayer_default:process signal;
+
+binder_call(system_server, hal_perfflinger_default)
+binder_call(system_server, hal_schedgenius_default)
+binder_call(system_server, hal_usb_gadget_xring)
+binder_call(system_server, hal_usb_xring)

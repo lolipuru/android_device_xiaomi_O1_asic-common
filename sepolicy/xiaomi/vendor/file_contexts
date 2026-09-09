@@ -1,2 +1,5 @@
+# Camera
+/(vendor|system/vendor)/bin/hw/vendor\.xiaomi\.hardware\.dynamiccameraserver  u:object_r:hal_camera_default_exec:s0
+
 # Fingerprint
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint-service\.xiaomi              u:object_r:hal_fingerprint_default_exec:s0

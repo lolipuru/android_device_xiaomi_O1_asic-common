@@ -1,0 +1,12 @@
+set_prop(init_insmod_sh, vendor_modprobe_prop)
+set_prop(init_insmod_sh, vendor_public_default_prop)
+set_prop(init_insmod_sh, vendor_wc_prop)
+
+allow init_insmod_sh self:capability sys_admin;
+allow init_insmod_sh self:process ptrace;
+allow init_insmod_sh self:key write;
+allow init_insmod_sh block_device:dir search;
+allow init_insmod_sh kmsg_device:chr_file { getattr open write };
+allow init_insmod_sh proc_sysrq:file rw_file_perms;
+allow init_insmod_sh system_file:system module_load;
+allow init_insmod_sh vendor_shell_exec:file rx_file_perms;

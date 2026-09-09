@@ -1,0 +1,24 @@
+# Graphics
+attribute hal_graphics_composer_ext;
+attribute hal_graphics_composer_ext_client;
+attribute hal_graphics_composer_ext_server;
+
+attribute hal_graphics_composer_tuning;
+attribute hal_graphics_composer_tuning_client;
+attribute hal_graphics_composer_tuning_server;
+
+# Intelligent
+attribute hal_intelligent;
+attribute hal_intelligent_client;
+attribute hal_intelligent_server;
+
+# Perf
+attribute hal_gamingplus;
+attribute hal_gamingplus_client;
+attribute hal_gamingplus_server;
+
+# Media
+attribute hal_x_jpeg;
+attribute hal_x_jpeg_client;
+attribute hal_x_jpeg_server;
+attribute xplayer_client;

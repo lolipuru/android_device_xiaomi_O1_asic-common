@@ -1,0 +1,5 @@
+binder_call(xplayer_client, hal_c2_x)
+binder_call(xplayer_client, hal_xplayer_default)
+
+allow xplayer_client hal_c2_x:fd use;
+allow xplayer_client hal_xplayer_default_service:service_manager find;

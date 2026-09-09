@@ -1,0 +1,37 @@
+type hal_xplayer_default, domain;
+type hal_xplayer_default_exec, exec_type, vendor_file_type, file_type;
+type hal_xplayer_default_service, hal_service_type, service_manager_type;
+
+init_daemon_domain(hal_xplayer_default)
+
+hal_client_domain(hal_xplayer_default, hal_graphics_allocator)
+hal_client_domain(hal_xplayer_default, hal_graphics_composer_ext)
+
+allow hal_xplayer_default hal_xplayer_default_service:service_manager { add find };
+
+binder_use(hal_xplayer_default)
+binder_call(hal_xplayer_default, hal_graphics_allocator_default)
+binder_call(hal_xplayer_default, hal_graphics_composer_default)
+binder_call(hal_xplayer_default, system_app)
+binder_call(hal_xplayer_default, untrusted_app)
+binder_call(hal_xplayer_default, xplayer_client)
+
+allow hal_xplayer_default vendor_sysfs_xplayer_drv:chr_file rw_file_perms;
+allow hal_xplayer_default uhid_device:chr_file rw_file_perms;
+allow hal_xplayer_default dmabuf_heap_device:chr_file r_file_perms;
+allow hal_xplayer_default dmabuf_system_heap_device:chr_file r_file_perms;
+allow hal_xplayer_default vndbinder_device:chr_file rw_file_perms;
+allow hal_xplayer_default hal_graphics_allocator_service:service_manager find;
+allow hal_xplayer_default hal_graphics_mapper_service:service_manager find;
+allow hal_xplayer_default hal_graphics_mapper_hwservice:hwservice_manager find;
+allow hal_xplayer_default hal_c2_x:fd use;
+allow hal_xplayer_default hal_graphics_allocator_default:fd use;
+allow hal_xplayer_default hal_graphics_allocator_default_tmpfs:file rw_file_perms;
+allow hal_xplayer_default fwmarkd_socket:sock_file write;
+allow hal_xplayer_default netd:unix_stream_socket { connectto getopt read setopt write };
+allow hal_xplayer_default node:{ tcp_socket udp_socket } node_bind;
+allow hal_xplayer_default port:tcp_socket { name_bind name_connect };
+allow hal_xplayer_default port:udp_socket name_bind;
+allow hal_xplayer_default self:tcp_socket create_stream_socket_perms;
+allow hal_xplayer_default self:udp_socket create_socket_perms_no_ioctl;
+allow hal_xplayer_default dumpstate:binder transfer;

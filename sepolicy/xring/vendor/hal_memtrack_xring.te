@@ -1,0 +1,10 @@
+type hal_memtrack_xring, domain;
+type hal_memtrack_xring_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_memtrack_xring)
+
+hal_server_domain(hal_memtrack_xring, hal_memtrack)
+hal_attribute_service(hal_memtrack, hal_memtrack_service)
+
+allow hal_memtrack_xring proc_gpu_memory:file rw_file_perms;
+allow hal_memtrack_xring sysfs_dmabuf_stats:dir r_dir_perms;
+allow hal_memtrack_xring sysfs_dmabuf_stats:file r_file_perms;

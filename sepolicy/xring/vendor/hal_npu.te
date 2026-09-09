@@ -1,0 +1,29 @@
+type hal_npu, domain;
+type hal_npu_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_npu)
+
+get_prop(hal_npu, vendor_npu_prop)
+
+allow hal_npu npu_log_data_file:dir create_dir_perms;
+allow hal_npu npu_log_data_file:file create_file_perms;
+allow hal_npu vendor_data_file:dir create_dir_perms;
+allow hal_npu vendor_data_file:file create_file_perms;
+allow hal_npu xrlog_data_file:dir create_dir_perms;
+allow hal_npu xrlog_data_file:file create_file_perms;
+
+allow hal_npu vendor_shell_exec:file rx_file_perms;
+allow hal_npu vendor_toolbox_exec:file rx_file_perms;
+
+allow {
+    appdomain
+    hal_c2_x
+    hal_camera_default
+    mediacodec
+    system_server
+} npu_device:chr_file rw_file_perms;
+
+allow {
+    appdomain
+    hal_camera_default
+    system_server
+} npu_service_device:chr_file rw_file_perms;

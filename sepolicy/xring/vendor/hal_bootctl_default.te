@@ -1,0 +1,6 @@
+allow hal_bootctl_default block_device:dir search;
+allow hal_bootctl_default boot_block_device:blk_file getattr;
+allow hal_bootctl_default misc_block_device:blk_file rw_file_perms;
+allow hal_bootctl_default slot_bootable_device:chr_file rw_file_perms;
+allow hal_bootctl_default bootlu_sel:file rw_file_perms;
+allow hal_bootctl_default kmsg_device:chr_file { open write };

@@ -1,0 +1,26 @@
+type hal_schedgenius_default, domain, mlstrustedsubject;
+type hal_schedgenius_default_exec, exec_type, vendor_file_type, file_type;
+type hal_schedgenius_hwservice, hal_service_type, service_manager_type;
+
+init_daemon_domain(hal_schedgenius_default)
+
+binder_use(hal_schedgenius_default)
+binder_call(hal_schedgenius_default, hal_perfflinger_default)
+
+get_prop(hal_schedgenius_default, system_boot_reason_prop)
+get_prop(hal_schedgenius_default, hwservicemanager_prop)
+
+allow hal_schedgenius_default hal_schedgenius_hwservice:service_manager { add find };
+allow hal_schedgenius_default hal_perfflinger_default_service:service_manager find;
+allow hal_schedgenius_default perf_actuator_device:chr_file rw_file_perms;
+allow hal_schedgenius_default ddr_vote_device:chr_file rw_file_perms;
+allow hal_schedgenius_default ddr_devfreq_device:file r_file_perms;
+allow hal_schedgenius_default xr_gpufreq_t:file rw_file_perms;
+allow hal_schedgenius_default sysfs_devices_system_cpu:file rw_file_perms;
+allow hal_schedgenius_default sysfs:file rw_file_perms;
+allow hal_schedgenius_default proc:file rw_file_perms;
+allow hal_schedgenius_default self:capability { sys_admin sys_nice };
+allow hal_schedgenius_default self:perf_event { open cpu kernel read write };
+allow hal_schedgenius_default { appdomain untrusted_app_all }:process { getsched setsched };
+allow hal_schedgenius_default vendor_gamingplus_data_file:dir search;
+allow hal_schedgenius_default vendor_gamingplus_data_file:file r_file_perms;

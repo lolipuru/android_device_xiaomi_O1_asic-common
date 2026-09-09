@@ -1,0 +1,54 @@
+# Camera
+persist.vendor.algoengine.ellc.mode                    u:object_r:vendor_camera_prop:s0
+persist.vendor.camera.                                 u:object_r:vendor_camera_prop:s0
+persist.vendor.cameraid.totalnum                       u:object_r:vendor_camera_prop:s0
+persist.vendor.EnableP3ColorSpace                      u:object_r:vendor_camera_prop:s0
+persist.vendor.facealign.                              u:object_r:vendor_camera_prop:s0
+persist.vendor.sat.                                    u:object_r:vendor_camera_prop:s0
+persist.vendor.XDRVersion                              u:object_r:vendor_camera_prop:s0
+persist.vendor.xrisp.                                  u:object_r:vendor_camera_prop:s0
+ro.boot.camera.config                                  u:object_r:vendor_camera_prop:s0
+vendor.camera.                                         u:object_r:vendor_camera_prop:s0
+vendor.debug.sat.fdmode                                u:object_r:vendor_camera_prop:s0
+vendor.xring.camera.                                   u:object_r:vendor_camera_prop:s0
+
+# Gralloc & ARM Mali
+ro.vendor.arm.egl.configs.                             u:object_r:vendor_arm_egl_configs_prop:s0
+ro.vendor.arm.gralloc.                                 u:object_r:vendor_arm_gralloc_prop:s0
+vendor.xring.gralloc.afbc_enable                       u:object_r:vendor_xring_gralloc_prop:s0 exact string
+vendor.xring.gralloc.afbc_scramble                     u:object_r:vendor_xring_gralloc_prop:s0 exact string
+
+# Logging
+persist.vendor.xlogd.                                  u:object_r:vendor_xlogd_prop:s0
+ro.vendor.bootup_keypoint                              u:object_r:vendor_dfx_prop:s0
+vendor.xlogd.                                          u:object_r:vendor_xlogd_prop:s0
+
+# Media
+ro.vendor.xring.video.                                 u:object_r:vendor_vpu_prop:s0
+vendor.xring.c2x.debug                                 u:object_r:vendor_xring_c2x_debug_prop:s0
+vendor.xring.c2x.info                                  u:object_r:vendor_xring_c2x_info_prop:s0
+vendor.xring.sdk.debug                                 u:object_r:vendor_xring_sdk_debug_prop:s0
+vendor.xring.sdk.info                                  u:object_r:vendor_xring_sdk_info_prop:s0
+vendor.xring.vpu.                                      u:object_r:vendor_vpu_prop:s0
+
+# Memory
+vendor.zram.disable                                    u:object_r:vendor_memory_prop:s0
+vendor.zram.zramsize                                   u:object_r:vendor_memory_prop:s0
+
+# Mitee
+persist.vendor.mitee_tui.test                          u:object_r:vendor_mitrustedui_prop:s0
+ro.vendor.keymint.configured                           u:object_r:vendor_xring_mitee_prop:s0 exact bool
+ro.vendor.mitee_tui.support                            u:object_r:vendor_mitrustedui_prop:s0
+ro.vendor.xring_mitee_support                          u:object_r:vendor_xring_mitee_prop:s0
+vendor.xiaomi.trustedvm.version                       u:object_r:vendor_mitrustedui_prop:s0
+
+# NPU
+persist.vendor.npu.loglevel                            u:object_r:vendor_npu_prop:s0
+
+# Perf
+ro.vendor.persist.hardware.perfflinger.                u:object_r:vendor_perfflinger_prop:s0
+vendor.persist.hardware.perfflinger.                   u:object_r:vendor_perfflinger_prop:s0
+
+# USB
+ro.vendor.usb.                                         u:object_r:vendor_usb_prop:s0
+vendor.sys.usb.                                        u:object_r:vendor_usb_prop:s0

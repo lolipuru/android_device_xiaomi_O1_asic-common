@@ -1,0 +1,1 @@
+allow init sysfs_discard_max_bytes_ufs:file { open write };

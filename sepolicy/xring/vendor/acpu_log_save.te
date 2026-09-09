@@ -1,0 +1,13 @@
+type acpu_log_save, domain;
+type acpu_log_save_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(acpu_log_save)
+
+allow acpu_log_save block_device:dir search;
+allow acpu_log_save dfx_block_device:blk_file rw_file_perms;
+allow acpu_log_save nvmem_block_device:blk_file rw_file_perms;
+allow acpu_log_save proc:file r_file_perms;
+allow acpu_log_save rtc_device:chr_file rw_file_perms;
+allow acpu_log_save self:netlink_socket create_socket_perms_no_ioctl;
+allow acpu_log_save userdata_block_device:blk_file rw_file_perms;
+allow acpu_log_save xrlog_data_file:dir create_dir_perms;
+allow acpu_log_save xrlog_data_file:file create_file_perms;

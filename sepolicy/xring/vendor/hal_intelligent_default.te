@@ -1,0 +1,28 @@
+type hal_intelligent_default, domain;
+type hal_intelligent_default_exec, exec_type, vendor_file_type, file_type;
+type hal_intelligent_service, hal_service_type, service_manager_type;
+
+init_daemon_domain(hal_intelligent_default)
+
+hal_server_domain(hal_intelligent_default, hal_intelligent)
+
+binder_use(hal_intelligent_default)
+binder_call(hal_intelligent_default, system_app)
+binder_call(hal_intelligent_default, system_suspend_server)
+
+get_prop(hal_intelligent_default, hwservicemanager_prop)
+
+allow hal_intelligent_default hal_intelligent_service:service_manager { add find };
+allow hal_intelligent_default hal_system_suspend_service:service_manager find;
+allow hal_intelligent_default hidl_manager_hwservice:hwservice_manager find;
+allow hal_intelligent_default hwservicemanager:binder { call transfer };
+allow hal_intelligent_default mnt_vendor_file:dir search;
+allow hal_intelligent_default persist_data_file:dir create_dir_perms;
+allow hal_intelligent_default persist_data_file:file create_file_perms;
+allow hal_intelligent_default self:capability2 block_suspend;
+allow hal_intelligent_default sensor_framework:chr_file rw_file_perms;
+allow hal_intelligent_default sysfs_wake_lock:file rw_file_perms;
+allow hal_intelligent_default system_suspend_hwservice:hwservice_manager find;
+allow hal_intelligent_default system_suspend_server:fd use;
+allow hal_intelligent_default xrlog_data_file:dir create_dir_perms;
+allow hal_intelligent_default xrlog_data_file:file create_file_perms;

@@ -1,0 +1,117 @@
+# Block devices
+type adsp_block_device, dev_type;
+type bl2_block_device, dev_type;
+type bl31_block_device, dev_type;
+type boot_logo_block_device, dev_type;
+type ddr_param_block_device, dev_type;
+type dfx_block_device, dev_type;
+type ffu_partition, dev_type;
+type gsort_block_device, dev_type;
+type hdcp_block_device, dev_type;
+type init_boot_block_device, dev_type;
+type isp_block_device, dev_type;
+type logfs_block_device, dev_type;
+type lpctrl_block_device, dev_type;
+type minidump_block_device, dev_type;
+type blackbox_block_device, dev_type;
+type oops_block_device, dev_type;
+type rescue_block_device, dev_type;
+type npu_block_device, dev_type;
+type nvmem_block_device, dev_type;
+type sap_block_device, dev_type;
+type sec_dtbo_block_device, dev_type;
+type sensorhub_block_device, dev_type;
+type uefi_block_device, dev_type;
+type vendor_charge_block_device, dev_type;
+type vendor_ramdump_block_device, dev_type;
+type xctrl_cpu_block_device, dev_type;
+type xctrl_ddr_block_device, dev_type;
+type xhee_block_device, dev_type;
+type xloader_block_device, dev_type;
+type xrse_block_device, dev_type;
+type xspm_block_device, dev_type;
+type xsps_block_device, dev_type;
+
+# Devices
+type bl31_log_device, dev_type;
+type compitable_enhance_device, dev_type;
+type coul_char_dev, dev_type;
+type cpnv_device, dev_type;
+type ddr_vote_device, dev_type;
+type edr_device, dev_type;
+type flowctrl_device, dev_type;
+type hpc_aon_device, dev_type;
+type lb_device, dev_type;
+type npu_device, dev_type, mlstrustedobject;
+type npu_service_device, dev_type;
+type perf_actuator_device, dev_type;
+type sensor_framework, dev_type;
+type shub_chre, dev_type;
+type shub_dfx_chr_device, dev_type;
+type slot_bootable_device, dev_type;
+type timestamp_device, dev_type;
+type tof_device, dev_type;
+type vendor_sysfs_xplayer_drv, dev_type;
+type xhee_log_device, dev_type;
+type xr_dmabuf_helper, dev_type;
+type xr_meminfo_device, dev_type;
+type xr_qos_device, dev_type;
+type xring_audio_tool_device, dev_type;
+type xrse_rtlog_device, dev_type;
+type xrvm_device, dev_type, mlstrustedobject, vm_manager_device_type;
+type xsp_log_device, dev_type;
+type xspm_log_device, dev_type;
+
+# Flash
+type sysfs_flash, fs_type, sysfs_type;
+
+# Graphics
+type ddr_devfreq_device, fs_type, sysfs_type;
+type vendor_sysfs_graphics, fs_type, sysfs_type;
+type xr_gpufreq_t, fs_type, sysfs_type;
+type xr_l3_devfreq_t, fs_type, sysfs_type;
+
+# LPS
+type low_power_xring_state_t, fs_type, sysfs_type;
+
+# NPU
+type xr_npu_freq_t, fs_type, sysfs_type;
+
+# Thermal
+type sys_thermal_boost, fs_type, sysfs_type;
+
+# UFS
+type bootlu_sel, fs_type, sysfs_type;
+type sysfs_discard_max_bytes_ufs, fs_type, sysfs_type;
+type sysfs_userdata_partition_ufs, fs_type, sysfs_type;
+type sysfs_zoned_ufs, fs_type, sysfs_type;
+
+# USB
+type vendor_sysfs_usb_c, fs_type, sysfs_type;
+type vendor_sysfs_usb_device, fs_type, sysfs_type;
+
+# Memory
+type sysfs_large_page_conf, fs_type, sysfs_type;
+type sysfs_memory_event, fs_type, sysfs_type;
+type sysfs_xr_hugepage, fs_type, sysfs_type;
+type sysfs_xringlmk, fs_type, sysfs_type;
+
+# Proc
+type proc_fastbootlog, fs_type, proc_type;
+type proc_tmi_log, fs_type, proc_type;
+
+# Firmware
+type gpu_fwfile, file_type, vendor_file_type;
+type isp_fwfile, file_type, vendor_file_type;
+type npu_fwfile, file_type, vendor_file_type;
+type vsdp_fwfile, file_type, vendor_file_type;
+
+# Logging
+type gcb_dump_file, file_type, data_file_type;
+type log_data_file, file_type, data_file_type, core_data_file_type;
+type npu_log_data_file, file_type, data_file_type;
+type perf_data_file, file_type, data_file_type;
+type vendor_gamingplus_data_file, file_type, data_file_type;
+type xring_lb_user, file_type, data_file_type, core_data_file_type;
+type xrlog_data_file, file_type, data_file_type;
+type xrlog_file, file_type, data_file_type, core_data_file_type;

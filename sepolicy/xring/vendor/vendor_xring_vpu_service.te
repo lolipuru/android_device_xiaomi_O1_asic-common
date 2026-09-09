@@ -1,0 +1,40 @@
+type vendor_xring_vpu_service, domain, mlstrustedsubject;
+type vendor_xring_vpu_service_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(vendor_xring_vpu_service)
+
+binder_use(vendor_xring_vpu_service)
+binder_call(vendor_xring_vpu_service, appdomain)
+binder_call(vendor_xring_vpu_service, mediametrics)
+binder_call(vendor_xring_vpu_service, system_server)
+
+set_prop(vendor_xring_vpu_service, vendor_vpu_prop)
+get_prop(vendor_xring_vpu_service, vendor_xring_sdk_debug_prop)
+get_prop(vendor_xring_vpu_service, vendor_xring_sdk_info_prop)
+
+allow vendor_xring_vpu_service dmabuf_system_heap_device:chr_file rw_file_perms;
+allow vendor_xring_vpu_service video_device:chr_file rw_file_perms;
+allow vendor_xring_vpu_service vndbinder_device:chr_file rw_file_perms;
+allow vendor_xring_vpu_service xr_dmabuf_helper:chr_file rw_file_perms;
+allow vendor_xring_vpu_service self:netlink_kobject_uevent_socket { bind create read };
+allow vendor_xring_vpu_service tmpfs:file rw_file_perms;
+
+allow vendor_xring_vpu_service {
+    appdomain
+    ephemeral_app
+    hal_c2_x
+    hal_camera_default
+    hal_graphics_allocator_default
+    mediametrics
+    mediaserver
+    mediatranscoding
+    platform_app
+    priv_app
+    system_app
+    system_server
+    untrusted_app_all
+    vtservice
+    xplayer_client
+}:fd use;
+
+allow vendor_xring_vpu_service vendor_data_file:dir create_dir_perms;
+allow vendor_xring_vpu_service vendor_data_file:file create_file_perms;

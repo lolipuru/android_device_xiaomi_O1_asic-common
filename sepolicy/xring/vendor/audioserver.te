@@ -1,0 +1,2 @@
+binder_call(audioserver, hal_perfflinger_default)
+allow audioserver hal_perfflinger_default_service:service_manager find;
