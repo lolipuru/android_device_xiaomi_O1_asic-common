@@ -103,6 +103,12 @@ TARGET_SYSTEM_PROP += $(COMMON_PATH)/configs/properties/system.prop
 TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/configs/properties/system_ext.prop
 TARGET_VENDOR_PROP += $(COMMON_PATH)/configs/properties/vendor.prop
 
+# Recovery
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.O1_asic
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_USERIMAGES_USE_F2FS := true
+
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
 
