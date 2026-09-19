@@ -53,7 +53,7 @@
 
 # Xring memory
 /dev/xr_dmabuf_helper     0444   system     system
-/dev/xr_meminfo           0444   system     system
+/dev/xr_meminfo           0664   system     system
 /dev/dma_heap/xring_cpa   0644   system     system
 /dev/dma_heap/xring_isp_faceid  0644    system  system
 /dev/dma_heap/xring_npu_dym     0644    system  system
@@ -83,6 +83,15 @@
 /dev/xring_venc           0660   system     camera
 /dev/xring_vpu_memmap     0660   system     camera
 
+# compitable enhance
+/dev/xr_compitable_enhance 0660   system     system
+
+# xring display group
+/dev/graphics/cmdlist     0660   system     graphics
+/dev/graphics/dpu_iommu   0660   system     graphics
+/dev/graphics/gcb_wb      0660   system     system
+/dev/xplayer              0660   system     graphics
+
 # xiaomi display feature
 subsystem mi_display
     devname uevent_devpath
@@ -90,12 +99,6 @@ subsystem mi_display
 
 # xiaomi display feature
 /dev/mi_display/*         0666   root       graphics
-
-#wfd
-/dev/xplayer              0660   system     graphics
-
-#veu
-/dev/veu                  0660   system     system
 
 #sensorhub
 /dev/app_router_hal       0660   system     system
@@ -108,6 +111,7 @@ on property:ro.debuggable=1
 
 #launch boost
 /dev/launch_boost	  0660	 system	    system
+/dev/iorap_dev		  0660	 system	    system
 
 #cpufreq_xres
 /sys/devices/system/cpu/cpu* cpufreq/xres/above_hispeed_delay      0664    root   system
@@ -121,4 +125,3 @@ on property:ro.debuggable=1
 /sys/devices/system/cpu/cpu* cpufreq/xres/rtg_boost_freq           0664    root   system
 /sys/devices/system/cpu/cpu* cpufreq/xres/target_loads             0664    root   system
 /sys/devices/system/cpu/cpu* cpufreq/xres/fl                       0664    root   system
-/sys/devices/system/cpu/cpu* cpufreq/xres/pl                       0664    root   system

@@ -39,9 +39,14 @@ on init
     chmod 0660 /dev/ddr_vote_dev
     chown root system /dev/xr_perf_actuator
     chmod 0660 /dev/xr_perf_actuator
+    chown root system /dev/xr_fbt
+    chmod 0666 /dev/xr_fbt
     chown root system /sys/class/devfreq/gpufreq/dynamic/user_freq
     chmod 0664 /sys/class/devfreq/gpufreq/dynamic/user_freq
+    chown root system /sys/class/devfreq/gpufreq/dynamic/user_valid
+    chmod 0664 /sys/class/devfreq/gpufreq/dynamic/user_valid
     setprop sys.usb.configfs 1
+    setprop vendor.persist.hardware.perfflinger.version 2.0
 
     write /sys/devices/system/cpu/gic_routing/gic_enable_class0 1
 
@@ -136,6 +141,8 @@ on post-fs-data
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /mnt/vendor/nvdata
 
+    mkdir /data/vendor/perf_monitor 0755 root system
+
     #Create folder of camera
     mkdir /data/vendor/camera 0777 camera camera
     mkdir /data/vendor/camera/offlinelog 0777 cameraserver audio
@@ -144,6 +151,13 @@ on post-fs-data
     # MIUI ADD: Camera_CameraSkyNet
     chmod 0666 /dev/camlog
     #END Camera_CameraSkyNet
+
+    # enable qos sched
+    write /sys/kernel/qos_inherit/inherit_enable 0x3ff
+    write /sys/kernel/qos_sched/sched_enable 1
+
+    # enable speedlock
+    write /sys/kernel/speedlock/sl_enable 1
 
 on zygote-start && property:ro.vendor.bootup_keypoint=true
     write /proc/bootup_keypoint 150
@@ -156,8 +170,8 @@ on property:sys.boot_completed=1
 
     write /dev/cpuset/foreground/cpus 0-9
     write /dev/cpuset/top-app/cpus 2-9
-    write /dev/cpuset/background/cpus 0-3
-    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/background/cpus 0-4
+    write /dev/cpuset/system-background/cpus 0-4
     write /dev/cpuset/restricted/cpus 0-4
     write /proc/sys/walt/sched_early_downmigrate "1995 1669 1204"
     write /proc/sys/walt/sched_early_upmigrate "1669 1575 1077"
@@ -166,7 +180,11 @@ on property:sys.boot_completed=1
     write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 0
     write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
 
+    write /proc/sys/kernel/hung_task_panic 1
     write /proc/sys/kernel/hung_task_timeout_secs 120
+
+    # disable ftrace write to pstore.log
+    write /proc/sys/kernel/ftrace_dump_on_oops 0
 
     # cpu big cluster
     write /sys/devices/system/cpu/cpu8/core_ctl/max_cpus 2
@@ -296,13 +314,6 @@ on property:sys.boot_completed=1
     chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c2/enable
     chmod 0660 /sys/devices/platform/dvfs_gov/dvfs_gov:memlat/dvfs_gov:memlat:ddr/dvfs_gov:memlat:ddr:c3/enable
 
-    # enable qos sched
-    write /sys/kernel/qos_inherit/inherit_enable 0x3ff
-    write /sys/kernel/qos_sched/sched_enable 1
-
-    # enable speedlock
-    write /sys/kernel/speedlock/sl_enable 1
-
     # set thermal tz use ipa policy
     write /sys/class/thermal/thermal_zone22/policy power_allocator
     write /sys/class/thermal/thermal_zone25/policy power_allocator
@@ -316,7 +327,7 @@ on property:sys.boot_completed=1 && property:ro.vendor.bootup_keypoint=true
 on property:sys.boot_completed=1 && property:ro.vendor.bootup_track=true
     write /proc/bootup_track 1
 
-on init && property:ro.boot.hwproductname=franklin
+on init && property:ro.boot.hwproductname=xring
     setprop ro.boot.fake_battery 1
 
 on boot
@@ -361,18 +372,20 @@ on boot
     chown root system /sys/devices/system/cpu/cpu9/qos/min_freq
 
     write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor xres
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/above_hispeed_delay "1000 1228800:2000"
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/above_hispeed_delay 2000
     write /sys/devices/system/cpu/cpufreq/policy0/xres/iowait_upper_limit 1536000
     write /sys/devices/system/cpu/cpufreq/policy0/xres/rtg_boost_freq 1228800
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/min_sample_time  18000
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/overload_duration 100000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/min_sample_time  2000
     write /sys/devices/system/cpu/cpufreq/policy0/xres/irq_boost_freq 1411200
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/target_loads "80 1228800:95"
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/target_loads "90 1036800:98"
     write /sys/devices/system/cpu/cpufreq/policy0/xres/nl 0
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/pl 0
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/pl 1
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/pl_max_freq 1536000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/pl_step_limit 200000
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_load 98
     write /sys/devices/system/cpu/cpufreq/policy0/xres/rate_limit_us 1000
-    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_freq 1228800
+    write /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_freq 1036800
+
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/above_hispeed_delay
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/iowait_upper_limit
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/rtg_boost_freq
@@ -385,20 +398,23 @@ on boot
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/hispeed_freq
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/fl
     chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/pl
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/pl_max_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/xres/pl_step_limit
 
     write /sys/devices/system/cpu/cpufreq/policy2/scaling_governor xres
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/above_hispeed_delay 1000
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/iowait_upper_limit 1891200
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/above_hispeed_delay 2000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/iowait_upper_limit 1536000
     write /sys/devices/system/cpu/cpufreq/policy2/xres/rtg_boost_freq 1536000
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/min_sample_time 18000
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/overload_duration 100000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/min_sample_time 2000
     write /sys/devices/system/cpu/cpufreq/policy2/xres/irq_boost_freq 1536000
     write /sys/devices/system/cpu/cpufreq/policy2/xres/target_loads 90
     write /sys/devices/system/cpu/cpufreq/policy2/xres/nl 0
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/pl 0
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/pl 1
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/pl_max_freq 1718400
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/pl_step_limit 200000
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_load 98
     write /sys/devices/system/cpu/cpufreq/policy2/xres/rate_limit_us 1000
-    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_freq 1718400
+    write /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_freq 1363200
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/above_hispeed_delay
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/iowait_upper_limit
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/rtg_boost_freq
@@ -410,21 +426,23 @@ on boot
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/rate_limit_us
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/hispeed_freq
     chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/fl
-    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/pl
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/pl_max_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy2/xres/pl_step_limit
 
     write /sys/devices/system/cpu/cpufreq/policy4/scaling_governor xres
     write /sys/devices/system/cpu/cpufreq/policy4/xres/above_hispeed_delay "2000 2544000:4000"
     write /sys/devices/system/cpu/cpufreq/policy4/xres/iowait_upper_limit 2544000
     write /sys/devices/system/cpu/cpufreq/policy4/xres/rtg_boost_freq 2544000
-    write /sys/devices/system/cpu/cpufreq/policy4/xres/min_sample_time 18000
-    write /sys/devices/system/cpu/cpufreq/policy4/xres/overload_duration 150000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/min_sample_time 4000
     write /sys/devices/system/cpu/cpufreq/policy4/xres/irq_boost_freq 2544000
     write /sys/devices/system/cpu/cpufreq/policy4/xres/target_loads "90 2544000:95"
     write /sys/devices/system/cpu/cpufreq/policy4/xres/nl 0
     write /sys/devices/system/cpu/cpufreq/policy4/xres/pl 1
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/pl_max_freq 3043200
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/pl_step_limit 200000
     write /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_load 95
     write /sys/devices/system/cpu/cpufreq/policy4/xres/rate_limit_us 2000
-    write /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_freq 1728000
+    write /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_freq 1363200
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/above_hispeed_delay
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/iowait_upper_limit
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/rtg_boost_freq
@@ -436,21 +454,23 @@ on boot
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/rate_limit_us
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/hispeed_freq
     chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/fl
-    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/pl
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/pl_max_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/xres/pl_step_limit
 
     write /sys/devices/system/cpu/cpufreq/policy8/scaling_governor xres
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/above_hispeed_delay "2000 2592000:4000"
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/above_hispeed_delay 4000
     write /sys/devices/system/cpu/cpufreq/policy8/xres/iowait_upper_limit 2793600
     write /sys/devices/system/cpu/cpufreq/policy8/xres/rtg_boost_freq 2400000
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/min_sample_time 18000
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/overload_duration 150000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/min_sample_time 4000
     write /sys/devices/system/cpu/cpufreq/policy8/xres/irq_boost_freq 2793600
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/target_loads "90 2793600:95"
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/target_loads "95 2793600:98"
     write /sys/devices/system/cpu/cpufreq/policy8/xres/nl 0
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/pl 0
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_load 95
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/pl 1
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/pl_max_freq 2793600
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/pl_step_limit 200000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_load 98
     write /sys/devices/system/cpu/cpufreq/policy8/xres/rate_limit_us 2000
-    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_freq 2592000
+    write /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_freq 2198400
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/above_hispeed_delay
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/iowait_upper_limit
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/rtg_boost_freq
@@ -462,20 +482,65 @@ on boot
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/rate_limit_us
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/hispeed_freq
     chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/fl
-    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/pl
-    write /sys/block/sdc/queue/scheduler cpq
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/pl_max_freq
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/xres/pl_step_limit
 
+    chown root system /sys/devices/system/cpu/cpu4/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu4/cpuidle/state2/disable
+    chown root system /sys/devices/system/cpu/cpu5/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu5/cpuidle/state2/disable
+    chown root system /sys/devices/system/cpu/cpu6/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu6/cpuidle/state2/disable
+    chown root system /sys/devices/system/cpu/cpu7/cpuidle/state1/disable
+    chown root system /sys/devices/system/cpu/cpu7/cpuidle/state2/disable
     chown root system /sys/devices/system/cpu/cpu8/cpuidle/state1/disable
     chown root system /sys/devices/system/cpu/cpu8/cpuidle/state2/disable
     chown root system /sys/devices/system/cpu/cpu9/cpuidle/state1/disable
     chown root system /sys/devices/system/cpu/cpu9/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu4/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu4/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu5/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu5/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu6/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu6/cpuidle/state2/disable
+    chmod 0664 /sys/devices/system/cpu/cpu7/cpuidle/state1/disable
+    chmod 0664 /sys/devices/system/cpu/cpu7/cpuidle/state2/disable
     chmod 0664 /sys/devices/system/cpu/cpu8/cpuidle/state1/disable
     chmod 0664 /sys/devices/system/cpu/cpu8/cpuidle/state2/disable
     chmod 0664 /sys/devices/system/cpu/cpu9/cpuidle/state1/disable
     chmod 0664 /sys/devices/system/cpu/cpu9/cpuidle/state2/disable
 
+on boot
+    write /sys/block/${dev.mnt.rootdisk.data}/queue/scheduler cpq
+
+    mkdir /dev/blkio/vip 0770 root system
+    mkdir /dev/blkio/hipri 0770 root system
+    mkdir /dev/blkio/lowpri 0770 root system
+    mkdir /dev/blkio/limit 0770 root system
+
+    write /dev/blkio/vip/blkio.cpq.level 0
+    write /dev/blkio/hipri/blkio.cpq.level 1
+    write /dev/blkio/lowpri/blkio.cpq.level 3
+    write /dev/blkio/limit/blkio.cpq.level 4
+on property:persist.sys.stability.smartfocusio.v1=off
+    write /sys/block/${dev.mnt.rootdisk.data}/queue/scheduler mq-deadline
+
+on boot && property:persist.sys.stability.smartfocusio.v3=on
+    write /proc/mikblockd_enable 1
+on property:persist.sys.stability.smartfocusio.v3=off
+    write /proc/mikblockd_enable 0
+
 on property:ro.product.brand=xring
     write /sys/module/xr_pmic/mntn/vbd_ctrl_en 0
+
+on property:persist.sys.stability.vip_file=true
+    write /dev/sys/fs/by-name/userdata/vip_file_enable 1
+
+on property:persist.sys.stability.vip_file=false
+    write /dev/sys/fs/by-name/userdata/vip_file_enable 0
+
+on property:persist.vendor.xrcompitable=1
+    write /dev/xr_compitable_enhance 0
 
 # MIUI ADD: FileSystem_fastDiscard
 on property:persist.sys.stability.fastdiscard=off

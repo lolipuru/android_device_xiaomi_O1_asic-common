@@ -2,6 +2,11 @@
 # USB compositions
 #
 
+# Set USB Host Quirks
+on early-init
+    write /sys/module/usbcore/parameters/quirks "0x2752:0x0007:i,0x3535:0x1122:k"
+    write /sys/module/usb_storage/parameters/quirks "0x21c4:0x06cf:u,0x0781:0x55af:u"
+
 on init
     setprop sys.usb.controller e1ac0000.dwc3
     setprop sys.usb.configfs 2
@@ -9,10 +14,6 @@ on init
 
 on boot && property:persist.vendor.usb.config=*
     setprop vendor.usb.config ${persist.vendor.usb.config}
-
-# Set USB Host Quirks
-on boot
-    write /sys/module/usbcore/parameters/quirks "0x2752:0x0007:i"
 
 on post-fs
     mount configfs none /config
@@ -49,6 +50,8 @@ on post-fs
     mkdir /config/usb_gadget/g1/functions/rndis.gs4 0770 system usb
     write /config/usb_gadget/g1/functions/rndis.gs4/os_desc/interface.rndis/compatible_id "RNDIS"
     write /config/usb_gadget/g1/functions/rndis.gs4/os_desc/interface.rndis/sub_compatible_id "5162001"
+    mkdir /config/usb_gadget/g1/functions/xmpriusbinterface.gs11 0770 system usb
+    write /config/usb_gadget/g1/functions/xmpriusbinterface.gs11/os_desc/interface.xmpriusbinterface/compatible_id "XMPRIUSBINTERFACE"
     mkdir /config/usb_gadget/g1/functions/midi.gs5 0770 system usb
     chown system usb /config/usb_gadget/g1/functions/midi.gs5/buflen
     chown system usb /config/usb_gadget/g1/functions/midi.gs5/id
@@ -320,3 +323,6 @@ on property:sys.usb.config=midi && property:sys.usb.configfs=1
 on property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/idVendor 0x18D1
     write /config/usb_gadget/g1/idProduct 0x4EE9
+
+on property:vendor.usb.config.ncm=1 && property:sys.usb.configfs=2
+    write /config/usb_gadget/g1/functions/ncm.gs6/ifname "ncm%d"

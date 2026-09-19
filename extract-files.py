@@ -63,12 +63,20 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk-v35.so')
         .replace_needed('libui.so', 'libui-v34.so'),
     (
+        'vendor/bin/hw/android.hardware.media.c2@1.2-service-x',
         'vendor/lib64/hw/android.hardware.graphics.allocator-V2-xring.so',
+        'vendor/lib64/hw/mapper.xring.so',
+        'vendor/lib64/libcodec2_x_common.so',
+        'vendor/lib64/libdriverintf.so',
+        'vendor/lib64/libheif_x_sdk.so',
+        'vendor/lib64/libheif_x_server.so',
         'vendor/lib64/libjpeg_x_sdk.so',
         'vendor/lib64/libjpeg_x_server.so',
+        'vendor/lib64/libvpp_x_server.so',
         'vendor/lib64/vendor.xring.graphics.gcb-V1-ndk.so',
+        'vendor/lib64/vendor.xring.graphics.gcb-V2-ndk.so',
         'vendor/lib64/vendor.xring.hardware.display.composerext-V1-ndk.so',
-        'vendor/lib64/hw/mapper.xring.so',
+        'vendor/lib64/vendor.xring.hardware.graphics.vpu.vpp-V1-ndk.so',
     ): blob_fixup()
         .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
     (
@@ -79,12 +87,12 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
     (
         'odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl',
-        'vendor/lib64/libcodec2_x_c2store.so',
     ): blob_fixup()
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so')
         .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
     (
         'odm/lib64/hw/displayfeature.default.so',
+        'odm/lib64/libdynamicelvss.so',
         'odm/lib64/libadaptivehdr.so',
         'odm/lib64/libcolortempmode.so',
         'odm/lib64/libdither.so',
