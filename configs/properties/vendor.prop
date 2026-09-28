@@ -152,7 +152,9 @@ media.stagefright.thumbnail.prefer_hw_codecs=true
 ro.board.platform=O1_asic
 
 # USB
-vendor.usb.controller=e1ac0000.dwc3
+sys.usb.controller=e1ac0000.dwc3
+sys.usb.configfs=1
+vendor.usb.use_ffs_mtp=1
 
 # Volume
 ro.config.media_vol_steps=15
