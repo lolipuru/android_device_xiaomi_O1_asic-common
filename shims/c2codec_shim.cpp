@@ -16,4 +16,13 @@ namespace android {
         return nullptr;
     }
 
+    class MultiAccessUnitHelper {
+    public:
+        static bool isEnabledOnPlatform();
+    };
+
+    bool MultiAccessUnitHelper::isEnabledOnPlatform() {
+        return true;
+    }
+
 } // namespace android
